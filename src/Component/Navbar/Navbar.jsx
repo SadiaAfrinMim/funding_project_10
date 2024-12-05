@@ -119,7 +119,7 @@ const Navbar = () => {
           </ul>
         </div>
         <Link to="/" className="btn btn-ghost text-xl">
-          WebsiteName
+        SadiaFund 🤝
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">

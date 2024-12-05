@@ -63,7 +63,7 @@ const Login = () => {
   };
 
   return (
-    <div className="max-w-sm mx-auto my-12 p-6 border shadow-lg bg-white">
+    <div className="max-w-sm mx-auto my-12 p-6  shadow-lg border-2">
       <h2 className="text-2xl font-bold text-center mb-6">Login your account</h2>
       <form onSubmit={handleLogInFrom} className="space-y-4">
         <div>
@@ -119,7 +119,7 @@ const Login = () => {
       </div>
       <button
         onClick={handleGoogleSign}
-        className="btn w-full bg-gray-100 text-black border border-gray-300 flex items-center justify-center space-x-2"
+        className="btn w-full  border border-gray-300 flex items-center justify-center space-x-2"
       >
         <FcGoogle /> <span>Google Sign In</span>
       </button>
