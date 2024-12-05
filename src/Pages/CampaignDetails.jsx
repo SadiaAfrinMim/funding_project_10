@@ -1,0 +1,163 @@
+import React, { useState, useEffect } from "react";
+import { useLoaderData } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+const CampaignDetails = () => {
+  const data = useLoaderData();
+
+  if (!data) {
+    return <p>Loading...</p>; // Handle loading state
+  }
+
+  const { id, title, image, description, minimumDonation, deadline } = data;
+
+  const loggedInUser = {
+    email: "user@example.com", // Replace with the logged-in user's email
+    username: "User123", // Replace with the logged-in user's username
+  };
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isDonationComplete, setIsDonationComplete] = useState(false);
+  const [remainingTime, setRemainingTime] = useState("");
+  const [isDeadlineOver, setIsDeadlineOver] = useState(false);
+
+  useEffect(() => {
+    const calculateRemainingTime = () => {
+      const now = new Date();
+      const end = new Date(deadline);
+      const difference = end - now;
+
+      if (difference <= 0) {
+        setRemainingTime("Campaign has ended");
+        setIsDeadlineOver(true);
+        return;
+      }
+
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((difference / (1000 * 60)) % 60);
+      const seconds = Math.floor((difference / 1000) % 60);
+
+      setRemainingTime(
+        `${days}d ${hours}h ${minutes}m ${seconds}s remaining`
+      );
+    };
+
+    calculateRemainingTime();
+    const timer = setInterval(calculateRemainingTime, 1000);
+
+    return () => clearInterval(timer);
+  }, [deadline]);
+
+  const handleDonate = async () => {
+    if (isDeadlineOver) {
+      toast.error("The campaign deadline has passed. Donations are closed.", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: true,
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+    const donationOn = new Date().toISOString();
+
+    const donationData = {
+      image,
+      campaignId: id,
+      campaignTitle: title,
+      description,
+      minimumDonation,
+      deadline,
+      userEmail: loggedInUser.email,
+      username: loggedInUser.username,
+      donationOn
+    };
+
+    try {
+      const response = await fetch("http://localhost:5000/donation", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(donationData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to donate");
+      }
+
+      toast.success("Thank you for your donation!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: true,
+      });
+      setIsDonationComplete(true);
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error("An error occurred while processing your donation.", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: true,
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="max-w-5xl mx-auto py-10 px-6 bg-white shadow-lg rounded-md border border-gray-200">
+      <ToastContainer />
+      <h2 className="text-4xl font-bold text-center text-[#FF851B] mb-6 uppercase">
+        {title}
+      </h2>
+      <div className="flex flex-col md:flex-row items-center mb-8 gap-6">
+        <div className="w-full md:w-1/2">
+          <img
+            src={image}
+            alt={`Image for ${title}`}
+            className="w-full object-cover rounded-md shadow-lg"
+          />
+        </div>
+        <div className="w-full md:w-1/2 text-center md:text-left">
+          <p className="text-lg font-semibold text-gray-700 mb-4">
+            {description}
+          </p>
+          <p className="text-lg font-medium">
+            <strong>Minimum Donation:</strong> ${minimumDonation}
+          </p>
+          <p className="text-lg font-medium">
+            <strong>Deadline:</strong> {new Date(deadline).toLocaleDateString()}
+          </p>
+          <p className="text-lg font-bold text-red-600 mt-4">
+            <strong>Time Remaining:</strong> {remainingTime}
+          </p>
+        </div>
+      </div>
+
+      {/* "Donate" button */}
+      <div className="text-center mt-8">
+        <button
+          onClick={handleDonate}
+          className={`px-8 py-3 text-lg font-bold text-white rounded-md shadow-md transition duration-300 ${
+            isDeadlineOver || isDonationComplete
+              ? "bg-gray-400 cursor-not-allowed"
+              : "bg-gradient-to-r from-orange-500 to-yellow-400 hover:scale-105"
+          }`}
+          disabled={isSubmitting || isDonationComplete || isDeadlineOver}
+        >
+          {isSubmitting
+            ? "Processing..."
+            : isDonationComplete
+            ? "Donated"
+            : isDeadlineOver
+            ? "Closed"
+            : "Donate"}
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default CampaignDetails;

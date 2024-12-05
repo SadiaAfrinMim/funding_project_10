@@ -1,0 +1,77 @@
+[
+    {
+      "id": 1,
+      "title": "Save the Rainforest",
+      "description": "Help protect the Amazon rainforest from deforestation and support sustainable practices.",
+      "deadline": "2024-12-31",
+      "image": "https://i.ibb.co.com/tQ7Jy6z/rainforest.jpg",
+      "goal": 100000,
+      "raised": 45000
+    },
+    {
+      "id": 2,
+      "title": "Education for All",
+      "description": "Provide education resources to underprivileged children in remote areas.",
+      "deadline": "2024-11-30",
+      "image": "https://i.ibb.co.com/9ZH2dKZ/education.jpg",
+      "goal": 50000,
+      "raised": 25000
+    },
+    {
+      "id": 3,
+      "title": "Clean Water Initiative",
+      "description": "Build wells in communities lacking access to clean drinking water.",
+      "deadline": "2025-01-15",
+      "image": "https://i.ibb.co.com/QNwXsXw/cleanwater.jpg",
+      "goal": 80000,
+      "raised": 50000
+    },
+    {
+      "id": 4,
+      "title": "Animal Shelter Support",
+      "description": "Help us expand our facilities and provide better care for homeless animals.",
+      "deadline": "2024-12-15",
+      "image": "https://i.ibb.co.com/89vSXxr/premium-photo-1663133485247-dce8aad3a84a.jpg",
+      "goal": 30000,
+      "raised": 18000
+    },
+    {
+      "id": 5,
+      "title": "Youth Empowerment Program",
+      "description": "Support skill development and mentorship programs for underprivileged youth.",
+      "deadline": "2025-03-01",
+      "image": "https://i.ibb.co.com/gdm0LcS/youth-empowerment-in-Africa-1030x686.jpg",
+      "goal": 60000,
+      "raised": 40000
+    },
+   
+   
+    {
+      "id": 8,
+      "title": "Health Care for All",
+      "description": "Raise funds to provide free health checkups for low-income families.",
+      "deadline": "2024-12-25",
+      "image": "https://i.ibb.co.com/vJbnWTj/premium-photo-1681842906523-f27efd0d1718.jpg",
+      "goal": 40000,
+      "raised": 15000
+    },
+    {
+      "id": 9,
+      "title": "Community Library",
+      "description": "Help build a library in a remote village to encourage literacy and learning.",
+      "deadline": "2025-01-20",
+      "image": "https://i.ibb.co.com/4WHWYbb/premium-photo-1706061121923-e2aef3d28939.jpg",
+      "goal": 20000,
+      "raised": 12000
+    },
+    {
+      "id": 10,
+      "title": "Food for the Homeless",
+      "description": "Raise funds to distribute food packages to homeless people in urban areas.",
+      "deadline": "2025-01-05",
+      "image": "https://i.ibb.co.com/NTLtdtZ/photo-1608686207856-001b95cf60ca.jpg",
+      "goal": 50000,
+      "raised": 32000
+    }
+  ]
+  
