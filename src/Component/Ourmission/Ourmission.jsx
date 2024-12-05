@@ -1,4 +1,5 @@
 import React from 'react';
+import { Typewriter } from 'react-simple-typewriter';
 
 const Ourmission = () => {
  
@@ -37,7 +38,16 @@ const Ourmission = () => {
     <section className="py-12 ">
       <div className="max-w-7xl mx-auto px-4">
         <h2 className="text-4xl font-bold text-center text-[#FF851B] mb-4">
-          OUR MISSION
+        <Typewriter
+            words={['OUR MISSION']}
+            loop={5}
+            cursor
+            cursorStyle='_'
+            typeSpeed={70}
+            deleteSpeed={50}
+            delaySpeed={1000}
+           
+          />
         </h2>
         <p className="text-center  max-w-3xl mx-auto mb-12">
           Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium dolore.

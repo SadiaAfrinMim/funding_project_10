@@ -79,7 +79,7 @@ const Update = () => {
               placeholder="Enter image URL"
               className="input input-bordered w-full"
               defaultValue={image}
-              required
+              
             />
           </div>
 
@@ -94,7 +94,7 @@ const Update = () => {
               placeholder="Enter campaign title"
               className="input input-bordered w-full"
               defaultValue={title}
-              required
+             
             />
           </div>
 
@@ -107,13 +107,14 @@ const Update = () => {
               name="type"
               className="select select-bordered w-full"
               defaultValue={type} // Correctly set the default value
-              required
+              
             >
-              <option value="">Select Type</option>
-              <option value="personal">Personal Issue</option>
-              <option value="startup">Startup</option>
-              <option value="business">Business</option>
-              <option value="creative">Creative Ideas</option>
+               <option value="">Select Type</option>
+              <option value="Environment">Environment</option>
+              <option value="Education">Education</option>
+              <option value="animal welfare">animal welfare</option>
+              <option value="social development">social development</option>
+              <option value="humanitarian aid">humanitarian aid</option>
             </select>
           </div>
 
@@ -127,7 +128,7 @@ const Update = () => {
               placeholder="Enter campaign description"
               className="textarea textarea-bordered w-full"
               defaultValue={description} // Correctly use defaultValue for textarea
-              required
+              
             ></textarea>
           </div>
 
@@ -142,7 +143,7 @@ const Update = () => {
               placeholder="Enter minimum donation amount"
               className="input input-bordered w-full"
               defaultValue={minimumDonation}
-              required
+            
             />
           </div>
 
@@ -156,7 +157,7 @@ const Update = () => {
               name="deadline"
               className="input input-bordered w-full"
               defaultValue={deadline}
-              required
+              
             />
           </div>
 

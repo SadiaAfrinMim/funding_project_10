@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { FaEdit } from 'react-icons/fa';
 import { RiDeleteBin6Fill } from 'react-icons/ri';
 import { Link, useLoaderData } from 'react-router-dom';
+import { Typewriter } from 'react-simple-typewriter';
 import Swal from 'sweetalert2';
+import { AuthContex } from '../Authprovider/Authprovider';
 
 const Mycampaign = () => {
+  const {user} = useContext(AuthContex)
   // Set campaigns as state
   const campaignsData = useLoaderData(); // Data loaded from the server
   const [campaigns, setCampaigns] = useState(campaignsData);
@@ -45,7 +48,17 @@ const Mycampaign = () => {
 
   return (
     <div className="container mx-auto mt-10">
-      <h1 className="text-3xl font-bold mb-6">All Campaigns ({campaigns.length})</h1>
+      <h1 className="text-3xl text-orange-500 font-bold mb-6">
+      <Typewriter
+            words={['My Campaigns']}
+            loop={5}
+            
+            
+            typeSpeed={70}
+            deleteSpeed={50}
+            delaySpeed={1000}
+            
+          /> ({campaigns.length})</h1>
 
       <table className="min-w-full table-auto">
         <thead>
@@ -93,4 +106,3 @@ const Mycampaign = () => {
 };
 
 export default Mycampaign;
-

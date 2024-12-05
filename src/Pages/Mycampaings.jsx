@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import { AuthContex } from '../Authprovider/Authprovider';
+import { Typewriter } from 'react-simple-typewriter';
 
 const Mycampaings = () => {
   const { user } = useContext(AuthContex);
@@ -35,7 +36,18 @@ const Mycampaings = () => {
   return (
     <div className="max-w-6xl mx-auto py-10 px-6">
       <ToastContainer />
-      <h2 className="text-3xl font-bold text-orange-500 text-center mb-6">My Donated Campaigns</h2>
+      <h2 className="text-3xl font-bold text-orange-500 text-center mb-6">
+      <Typewriter
+            words={['My Donated Campaigns']}
+            loop={5}
+            cursor
+            cursorStyle='_'
+            typeSpeed={70}
+            deleteSpeed={50}
+            delaySpeed={1000}
+           
+          />
+      </h2>
       {donations.length === 0 ? (
         <p className="text-center text-lg ">
           No donations found. Start contributing today!

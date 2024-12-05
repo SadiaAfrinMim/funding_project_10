@@ -38,7 +38,7 @@ const router = createBrowserRouter([
 
         },
         {
-          path: "/campaigns",
+          path: "/add-campaign",
           element:<AddCampaign></AddCampaign>,
         },
         {
@@ -54,7 +54,7 @@ const router = createBrowserRouter([
           
         },
         {
-          path: "/add-campaign",
+          path: "/campaigns",
           element: <Allcampaigns />,
           loader: () =>
             fetch(`http://localhost:5000/campaigns`).then((res) => res.json()),

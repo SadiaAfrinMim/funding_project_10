@@ -22,7 +22,16 @@ const RunningFund = () => {
   return (
     <div className="max-w-7xl mx-auto py-10 px-4">
       <h2 className="text-4xl font-bold text-center text-[#FF851B] mb-8 isType" >
-       Running Campaigns
+      <Typewriter
+            words={['Running Campaigns']}
+            loop={5}
+            cursor
+            cursorStyle='_'
+            typeSpeed={70}
+            deleteSpeed={50}
+            delaySpeed={1000}
+            
+          />
       </h2>
       {activeCampaigns.length === 0 ? (
         <p className="text-center text-gray-600">No active campaigns at the moment.</p>

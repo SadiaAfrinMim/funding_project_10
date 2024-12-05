@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { AuthContex } from "../Authprovider/Authprovider";
+import { Typewriter } from "react-simple-typewriter";
 
 const AddCampaign = () => {
   const { user, displayName } = useContext(AuthContex);
@@ -11,7 +12,7 @@ const AddCampaign = () => {
     const title = form.title.value;
     const type = form.type.value;
     const description = form.description.value;
-    const minimumDonation = form.minimumDonation.value;
+    const minimumDonation =  Number(form.minimumDonation.value);
     const deadline = form.deadline.value;
 
     // Use user.email and displayName directly
@@ -43,7 +44,16 @@ const AddCampaign = () => {
     <div className="min-h-screen bg-gray-50 flex items-center justify-center py-10 px-4">
       <div className="w-full max-w-3xl bg-white rounded-lg shadow-lg p-8">
         <h2 className="text-3xl font-bold text-center text-[#FF851B] mb-8">
-          Add New Campaign
+        <Typewriter
+            words={['Add New Campaign']}
+            loop={5}
+            cursor
+            cursorStyle='_'
+            typeSpeed={70}
+            deleteSpeed={50}
+            delaySpeed={1000}
+            
+          />
         </h2>
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Image URL */}
@@ -81,10 +91,11 @@ const AddCampaign = () => {
             </label>
             <select name="type" className="select select-bordered w-full" required>
               <option value="">Select Type</option>
-              <option value="personal">Personal Issue</option>
-              <option value="startup">Startup</option>
-              <option value="business">Business</option>
-              <option value="creative">Creative Ideas</option>
+              <option value="Environment">Environment</option>
+              <option value="Education">Education</option>
+              <option value="animal welfare">animal welfare</option>
+              <option value="social development">social development</option>
+              <option value="humanitarian aid">humanitarian aid</option>
             </select>
           </div>
 

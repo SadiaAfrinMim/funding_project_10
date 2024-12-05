@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 import { AuthContex } from '../Authprovider/Authprovider';
+import { Typewriter } from 'react-simple-typewriter';
 
 const AllCampaigns = () => {
   const { user } = useContext(AuthContex);
@@ -8,7 +9,18 @@ const AllCampaigns = () => {
 
   return (
     <div className="container mx-auto mt-10 px-4">
-      <h1 className="text-3xl font-bold mb-6 text-center">All Campaigns</h1>
+      <h1 className="text-3xl font-bold mb-6 text-orange-400 text-center">
+      <Typewriter
+            words={['All Campaigns']}
+            loop={5}
+            cursor
+            cursorStyle='_'
+            typeSpeed={70}
+            deleteSpeed={50}
+            delaySpeed={1000}
+            
+          />
+      </h1>
 
       <div className="overflow-x-auto">
         <table className="min-w-full table-auto border-collapse border">
