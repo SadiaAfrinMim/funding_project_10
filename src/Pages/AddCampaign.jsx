@@ -1,38 +1,42 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
+import { AuthContex } from "../Authprovider/Authprovider";
 
 const AddCampaign = () => {
+  const { user, displayName } = useContext(AuthContex);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const from = e.target;
-    const image = from.image.value;
-    const title = from.title.value;
-    const type = from.type.value;
-    const description = from.description.value;
-    const minimumDonation = from.minimumDonation.value;
-    const deadline = from.deadline.value;
+    const form = e.target;
+    const image = form.image.value;
+    const title = form.title.value;
+    const type = form.type.value;
+    const description = form.description.value;
+    const minimumDonation = form.minimumDonation.value;
+    const deadline = form.deadline.value;
 
-
-    // Assuming user data is predefined or fetched
-    const user = {
+    // Use user.email and displayName directly
+    const campaign = {
       image,
       title,
       type,
       description,
       minimumDonation,
       deadline,
-
+      email: user.email,
+      name: user.displayName,
     };
 
-    fetch('http://localhost:5000/campaigns', {
-      method: 'POST',
+    // Make POST request to backend
+    fetch("http://localhost:5000/campaigns", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(user),
+      body: JSON.stringify(campaign),
     })
       .then((res) => res.json())
-      .then((data) => console.log(data))
-      .catch((error) => console.error('Error:', error));
+      .then((data) => console.log("Campaign Added:", data))
+      .catch((error) => console.error("Error:", error));
   };
 
   return (
@@ -75,11 +79,7 @@ const AddCampaign = () => {
             <label className="label">
               <span className="label-text font-bold">Campaign Type</span>
             </label>
-            <select
-              name="type"
-              className="select select-bordered w-full"
-              required
-            >
+            <select name="type" className="select select-bordered w-full" required>
               <option value="">Select Type</option>
               <option value="personal">Personal Issue</option>
               <option value="startup">Startup</option>
@@ -128,29 +128,31 @@ const AddCampaign = () => {
             />
           </div>
 
-
+          {/* User Email (Read-only) */}
           <div className="form-control w-full">
             <label className="label">
               <span className="label-text font-bold">User Email</span>
             </label>
             <input
               type="email"
-              defaultValue="user@example.com" // Replace with actual user email
+              defaultValue={user.email} // Use email from context
               name="email"
               className="input input-bordered w-full bg-gray-100"
+              readOnly
             />
           </div>
 
-
+          {/* User Name (Read-only) */}
           <div className="form-control w-full">
             <label className="label">
               <span className="label-text font-bold">User Name</span>
             </label>
             <input
               type="text"
-              defaultValue="John Doe" // Replace with actual user name
+              defaultValue={user.displayName} // Use displayName from context
               name="name"
               className="input input-bordered w-full bg-gray-100"
+              readOnly
             />
           </div>
 

@@ -11,6 +11,7 @@ import "./index.css";
 import Router from './Router/Router.jsx';
 import Authprovider from './Authprovider/Authprovider.jsx';
 import { ToastContainer } from 'react-toastify';
+import { Typewriter } from 'react-simple-typewriter';
 
 
 
@@ -20,6 +21,7 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Authprovider>
     <RouterProvider router={Router}>
+    <Typewriter></Typewriter>
 
 </RouterProvider>
 <ToastContainer />

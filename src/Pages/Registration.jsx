@@ -60,7 +60,7 @@ const Registration = () => {
 
     return (
         <div className="min-h-screen flex justify-center items-center ">
-            <div className="bg-orange-50 shadow-lg p-8 w-96">
+            <div className="border-2 shadow-lg p-8 w-96">
                 <h2 className="text-3xl font-semibold text-center text-[#FF851B] mb-6">
                     Register Account
                 </h2>
@@ -75,7 +75,7 @@ const Registration = () => {
                             type="text"
                             id="name"
                             name="name"
-                            className="w-full bg-white  p-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#FFDC00]"
+                            className="w-full  p-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#FFDC00]"
                             placeholder="Enter your name"
                             required
                         />
@@ -90,7 +90,7 @@ const Registration = () => {
                             type="email"
                             id="email"
                             name="email"
-                            className="w-full p-3 border bg-white border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#FFDC00]"
+                            className="w-full p-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#FFDC00]"
                             placeholder="Enter your email"
                             required
                         />
@@ -105,7 +105,7 @@ const Registration = () => {
                             type="url"
                             id="photoUrl"
                             name="photoUrl"
-                            className="w-full bg-white  p-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#FFDC00]"
+                            className="w-full  p-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#FFDC00]"
                             placeholder="Enter your photo URL (optional)"
                         />
                     </div>
@@ -119,7 +119,7 @@ const Registration = () => {
                             type={showPassword ? "text" : "password"} // Toggle between text and password
                             id="password"
                             name="password"
-                            className="w-full bg-white  p-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#FFDC00]"
+                            className="w-full   p-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#FFDC00]"
                             placeholder="Create a password"
                             required
                         />

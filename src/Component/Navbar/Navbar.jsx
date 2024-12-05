@@ -128,10 +128,10 @@ const Navbar = () => {
       <div className="navbar-end">
         {!user ? (
           <>
-            <button className="btn btn-primary mr-2" onClick={handleLogin}>
+            <button className="btn btn-primary rounded-none mr-2" onClick={handleLogin}>
               Log in
             </button>
-            <button className="btn btn-secondary" onClick={handleRegister}>
+            <button className="btn bg-yellow-400 rounded-none" onClick={handleRegister}>
               Register
             </button>
           </>

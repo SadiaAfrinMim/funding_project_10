@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLoaderData } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const Update = () => {
   const campaign = useLoaderData();
@@ -15,7 +16,7 @@ const Update = () => {
     const description = form.description.value;
     const minimumDonation = form.minimumDonation.value;
     const deadline = form.deadline.value;
-
+  
     const updatedCampaign = {
       image,
       title,
@@ -24,7 +25,7 @@ const Update = () => {
       minimumDonation,
       deadline,
     };
-
+  
     fetch(`http://localhost:5000/donation/${_id}`, {
       method: 'PUT',
       headers: {
@@ -35,9 +36,28 @@ const Update = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log('Campaign updated successfully:', data);
+  
+        // Show success message using SweetAlert2
+        Swal.fire({
+          title: 'Success!',
+          text: 'Campaign has been updated successfully!',
+          icon: 'success',
+          confirmButtonText: 'OK',
+        });
+  
+        // Alternatively, using toast
+        // toast.success('Campaign updated successfully!');
       })
       .catch((error) => {
         console.error('Error updating campaign:', error);
+  
+        // Show error message using SweetAlert2
+        Swal.fire({
+          title: 'Error!',
+          text: 'There was an error updating the campaign.',
+          icon: 'error',
+          confirmButtonText: 'OK',
+        });
       });
   };
 

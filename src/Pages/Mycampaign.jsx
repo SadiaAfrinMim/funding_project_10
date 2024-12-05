@@ -1,16 +1,16 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaEdit } from 'react-icons/fa';
 import { RiDeleteBin6Fill } from 'react-icons/ri';
 import { Link, useLoaderData } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
-
 const Mycampaign = () => {
-  const campaigns = useLoaderData();
+  // Set campaigns as state
+  const campaignsData = useLoaderData(); // Data loaded from the server
+  const [campaigns, setCampaigns] = useState(campaignsData);
 
   // Handle Delete Button Click
   const handleDelete = async (campaignId) => {
-     
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -28,9 +28,11 @@ const Mycampaign = () => {
           .then((data) => {
             if (data.deletedCount > 0) {
               Swal.fire("Deleted!", "Your campaign has been deleted.", "success");
-              // Update the campaigns list in UI
-              const remaining = campaigns.filter((data) => data._id !== campaignId);
-              campaigns.splice(0, campaigns.length, ...remaining);
+              // Update the campaigns list in UI by filtering out the deleted campaign
+              const remainingCampaigns = campaigns.filter(
+                (campaign) => campaign._id !== campaignId
+              );
+              setCampaigns(remainingCampaigns); // Update the state to reflect the UI change
             }
           })
           .catch((error) => {
@@ -91,3 +93,4 @@ const Mycampaign = () => {
 };
 
 export default Mycampaign;
+

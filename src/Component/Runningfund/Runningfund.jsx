@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
+import { Typewriter } from 'react-simple-typewriter'
 
 const RunningFund = () => {
   const campaigns = useLoaderData();
@@ -20,8 +21,8 @@ const RunningFund = () => {
  
   return (
     <div className="max-w-7xl mx-auto py-10 px-4">
-      <h2 className="text-4xl font-bold text-center text-[#FF851B] mb-8">
-        Running Campaigns
+      <h2 className="text-4xl font-bold text-center text-[#FF851B] mb-8 isType" >
+       Running Campaigns
       </h2>
       {activeCampaigns.length === 0 ? (
         <p className="text-center text-gray-600">No active campaigns at the moment.</p>

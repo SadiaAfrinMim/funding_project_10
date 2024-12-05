@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom"; // Import useNavigate
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const CampaignDetails = () => {
   const data = useLoaderData();
+  const navigate = useNavigate(); // Initialize useNavigate
 
   if (!data) {
     return <p>Loading...</p>; // Handle loading state
@@ -107,43 +108,41 @@ const CampaignDetails = () => {
   };
 
   return (
-    <div className="max-w-5xl mx-auto py-10 px-6 bg-white shadow-lg rounded-md border border-gray-200">
+    <div className="max-w-5xl mx-auto py-10 px-6 rounded-none shadow-lg border border-gray-200">
       <ToastContainer />
       <h2 className="text-4xl font-bold text-center text-[#FF851B] mb-6 uppercase">
         {title}
       </h2>
-      <div className="flex flex-col md:flex-row items-center mb-8 gap-6">
-        <div className="w-full md:w-1/2">
+      <div className="flex flex-col rounded-none md:flex-row items-center mb-8 gap-6">
+        <div className="w-full rounded-none md:w-1/2">
           <img
             src={image}
             alt={`Image for ${title}`}
-            className="w-full object-cover rounded-md shadow-lg"
+            className="w-full object-cover rounded-none border-2 border-orange-500 shadow-lg"
           />
         </div>
         <div className="w-full md:w-1/2 text-center md:text-left">
-          <p className="text-lg font-semibold text-gray-700 mb-4">
-            {description}
-          </p>
+          <p className="text-lg font-semibold mb-4">{description}</p>
           <p className="text-lg font-medium">
             <strong>Minimum Donation:</strong> ${minimumDonation}
           </p>
-          <p className="text-lg font-medium">
+          <p className="text-lg">
             <strong>Deadline:</strong> {new Date(deadline).toLocaleDateString()}
           </p>
-          <p className="text-lg font-bold text-red-600 mt-4">
+          <p className="text-lg btn btn-outline outline-double outline-orange-500 font-bold text-orange-500 rounded-none mt-4">
             <strong>Time Remaining:</strong> {remainingTime}
           </p>
         </div>
       </div>
 
-      {/* "Donate" button */}
+      {/* Donate Button */}
       <div className="text-center mt-8">
         <button
           onClick={handleDonate}
-          className={`px-8 py-3 text-lg font-bold text-white rounded-md shadow-md transition duration-300 ${
+          className={`px-8 py-3 text-lg font-bold text-white rounded-none shadow-md transition duration-300 ${
             isDeadlineOver || isDonationComplete
               ? "bg-gray-400 cursor-not-allowed"
-              : "bg-gradient-to-r from-orange-500 to-yellow-400 hover:scale-105"
+              : "bg-gradient-to-r from-orange-500 rounded-none to-yellow-400 hover:scale-105"
           }`}
           disabled={isSubmitting || isDonationComplete || isDeadlineOver}
         >
@@ -155,6 +154,16 @@ const CampaignDetails = () => {
             ? "Closed"
             : "Donate"}
         </button>
+
+        {/* Close Button */}
+        {isDeadlineOver && (
+          <button
+            onClick={() => navigate('/campaigns')} // Navigate to campaigns page
+            className="px-8 py-3 text-lg font-bold text-white bg-gray-500 rounded-none shadow-md transition duration-300 mt-4 hover:scale-105"
+          >
+            Close
+          </button>
+        )}
       </div>
     </div>
   );
