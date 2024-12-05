@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 import { Typewriter } from 'react-simple-typewriter'
 
-const RunningFund = () => {
-  const campaigns = useLoaderData();
+import AOS from "aos";
+import "aos/dist/aos.css";
 
+const RunningFund = () => {
+  useEffect(() => {
+    AOS.init(1000); // Initialize AOS animations
+  }, []);
+  
+  const campaigns = useLoaderData();
 
   // Get the current date
   const currentDate = new Date();
@@ -18,21 +24,20 @@ const RunningFund = () => {
   // State to track expanded description for each campaign
   const [expandedCampaignId, setExpandedCampaignId] = useState(null);
 
- 
   return (
-    <div className="max-w-7xl mx-auto py-10 px-4">
-      <h2 className="text-4xl font-bold text-center text-[#FF851B] mb-8 isType" >
-      <Typewriter
-            words={['Running Campaigns']}
-            loop={5}
-            cursor
-            cursorStyle='_'
-            typeSpeed={70}
-            deleteSpeed={50}
-            delaySpeed={1000}
-            
-          />
+    <div data-aos="zoom-in" className="max-w-7xl overflow-hidden mx-auto py-10 px-4">
+      <h2 className="text-4xl font-bold text-center text-[#FF851B] mb-8 isType">
+        <Typewriter
+          words={['Running Campaigns']}
+          loop={5}
+          cursor
+          cursorStyle='_'
+          typeSpeed={70}
+          deleteSpeed={50}
+          delaySpeed={1000}
+        />
       </h2>
+
       {activeCampaigns.length === 0 ? (
         <p className="text-center text-gray-600">No active campaigns at the moment.</p>
       ) : (
@@ -69,7 +74,7 @@ const RunningFund = () => {
                       ? campaign.description
                       : `${campaign.description.slice(0, 80)}...`}
                   </p>
-                  <div className="flex justify-between mt-4 text-sm ">
+                  <div className="flex justify-between mt-4 text-sm">
                     <span>
                       <strong>Minimum Donation:</strong> ${campaign.minimumDonation}
                     </span>

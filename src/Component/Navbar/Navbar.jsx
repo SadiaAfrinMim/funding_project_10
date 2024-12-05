@@ -81,10 +81,7 @@ const Navbar = () => {
         </>
         
       )}
-       <div >
-            <Toggle  isChecked={isDark} handleChange={() => setIsDark(!isDark)} />
-           
-          </div>
+       
     </>
   );
 
@@ -125,13 +122,17 @@ const Navbar = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{Navlink}</ul>
       </div>
-      <div className="navbar-end">
+      <div className="navbar-end space-x-2">
+      <div >
+            <Toggle  isChecked={isDark} handleChange={() => setIsDark(!isDark)} />
+           
+          </div>
         {!user ? (
           <>
             <button className="btn btn-primary rounded-none mr-2" onClick={handleLogin}>
               Log in
             </button>
-            <button className="btn bg-yellow-400 rounded-none" onClick={handleRegister}>
+            <button className="btn bg-orange-500 rounded-none" onClick={handleRegister}>
               Register
             </button>
           </>

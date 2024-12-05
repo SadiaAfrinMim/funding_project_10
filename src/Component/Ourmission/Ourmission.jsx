@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Typewriter } from 'react-simple-typewriter';
+import AOS from 'aos';
+import 'aos/dist/aos.css'
 
 const Ourmission = () => {
+  useEffect(() => {
+    AOS.init(3000); // Initialize AOS animations
+  }, []);
  
   const missions = [
     {
@@ -35,8 +40,8 @@ const Ourmission = () => {
   ];
 
   return (
-    <section className="py-12 ">
-      <div className="max-w-7xl mx-auto px-4">
+    <section data-aos="zoom-out-left" className="py-12 ">
+      <div className="max-w-7xl mx-auto px-4 overflow-hidden">
         <h2 className="text-4xl font-bold text-center text-[#FF851B] mb-4">
         <Typewriter
             words={['OUR MISSION']}

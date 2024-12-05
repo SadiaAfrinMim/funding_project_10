@@ -1,16 +1,18 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { FaEdit } from 'react-icons/fa';
-import { RiDeleteBin6Fill } from 'react-icons/ri';
-import { Link, useLoaderData } from 'react-router-dom';
-import { Typewriter } from 'react-simple-typewriter';
-import Swal from 'sweetalert2';
-import { AuthContex } from '../Authprovider/Authprovider';
+import React, { useState, useEffect, useContext } from "react";
+import { FaEdit } from "react-icons/fa";
+import { RiDeleteBin6Fill } from "react-icons/ri";
+import { Link, useLoaderData } from "react-router-dom";
+import { Typewriter } from "react-simple-typewriter";
+import Swal from "sweetalert2";
+import { AuthContex } from "../Authprovider/Authprovider";
 
 const Mycampaign = () => {
-  const {user} = useContext(AuthContex)
-  // Set campaigns as state
+  const { user } = useContext(AuthContex);
   const campaignsData = useLoaderData(); // Data loaded from the server
   const [campaigns, setCampaigns] = useState(campaignsData);
+
+  // Filter campaigns to only include those created by the logged-in user
+  const userCampaigns = campaigns.filter((campaign) => campaign.email === user.email);
 
   // Handle Delete Button Click
   const handleDelete = async (campaignId) => {
@@ -25,7 +27,7 @@ const Mycampaign = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         fetch(`http://localhost:5000/campaigns/${campaignId}`, {
-          method: 'DELETE',
+          method: "DELETE",
         })
           .then((res) => res.json())
           .then((data) => {
@@ -49,16 +51,15 @@ const Mycampaign = () => {
   return (
     <div className="container mx-auto mt-10">
       <h1 className="text-3xl text-orange-500 font-bold mb-6">
-      <Typewriter
-            words={['My Campaigns']}
-            loop={5}
-            
-            
-            typeSpeed={70}
-            deleteSpeed={50}
-            delaySpeed={1000}
-            
-          /> ({campaigns.length})</h1>
+        <Typewriter
+          words={["My Campaigns"]}
+          loop={5}
+          typeSpeed={70}
+          deleteSpeed={50}
+          delaySpeed={1000}
+        />{" "}
+        ({userCampaigns.length})
+      </h1>
 
       <table className="min-w-full table-auto">
         <thead>
@@ -66,12 +67,12 @@ const Mycampaign = () => {
             <th className="px-4 py-2 border">Image</th>
             <th className="px-4 py-2 border">Title</th>
             <th className="px-4 py-2 border">Description</th>
-            <th className="px-4 py-2 border">Status</th>
+            <th className="px-4 py-2 border">Type</th>
             <th className="px-4 py-2 border">Actions</th>
           </tr>
         </thead>
         <tbody>
-          {campaigns.map((campaign) => (
+          {userCampaigns.map((campaign) => (
             <tr key={campaign._id} className="border-b">
               <td className="px-4 py-2">
                 <img
@@ -84,6 +85,7 @@ const Mycampaign = () => {
               <td className="px-4 py-2">{campaign.description}</td>
               <td className="px-4 py-2">{campaign.type}</td>
               <td className="px-4 py-2 flex gap-2">
+                {/* Only show Edit/Delete buttons for the current user's campaigns */}
                 <Link
                   to={`/donation/${campaign._id}`}
                   className="btn bg-yellow-400 p-2 rounded-md"

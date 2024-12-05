@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom"; // Import useNavigate
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { AuthContex } from "../Authprovider/Authprovider";
+import Swal from 'sweetalert2'; // Import SweetAlert2
 
 const CampaignDetails = () => {
+  const { user, displayName } = useContext(AuthContex);
   const data = useLoaderData();
   const navigate = useNavigate(); // Initialize useNavigate
 
@@ -12,11 +15,6 @@ const CampaignDetails = () => {
   }
 
   const { id, title, image, description, minimumDonation, deadline } = data;
-
-  const loggedInUser = {
-    email: "user@example.com", // Replace with the logged-in user's email
-    username: "User123", // Replace with the logged-in user's username
-  };
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isDonationComplete, setIsDonationComplete] = useState(false);
@@ -53,10 +51,12 @@ const CampaignDetails = () => {
 
   const handleDonate = async () => {
     if (isDeadlineOver) {
-      toast.error("The campaign deadline has passed. Donations are closed.", {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: true,
+      // Show SweetAlert modal when the deadline has passed
+      Swal.fire({
+        icon: 'error',
+        title: 'Campaign Closed',
+        text: 'The campaign deadline has passed. Donations are no longer accepted.',
+        confirmButtonColor: '#d33', // Red button color for error
       });
       return;
     }
@@ -71,8 +71,8 @@ const CampaignDetails = () => {
       description,
       minimumDonation,
       deadline,
-      userEmail: loggedInUser.email,
-      username: loggedInUser.username,
+      userEmail: user.email,
+      username: user.displayName,
       donationOn
     };
 
@@ -89,7 +89,7 @@ const CampaignDetails = () => {
         throw new Error("Failed to donate");
       }
 
-      toast.success("Thank you for your donation!", {
+      Swal.fire("Thank you for your donation!", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: true,
@@ -118,7 +118,7 @@ const CampaignDetails = () => {
           <img
             src={image}
             alt={`Image for ${title}`}
-            className="w-full object-cover rounded-none border-2 border-orange-500 shadow-lg"
+            className="w-full h-96 object-cover rounded-none border-2 border-orange-500 shadow-lg"
           />
         </div>
         <div className="w-full md:w-1/2 text-center md:text-left">
