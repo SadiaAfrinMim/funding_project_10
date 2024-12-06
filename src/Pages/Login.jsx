@@ -4,8 +4,21 @@ import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContex } from '../Authprovider/Authprovider';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import Swal from 'sweetalert2'; // Import SweetAlert
+import { useLottie } from "lottie-react";
+import donationAnimation from '../assets/donation.json';
 
 const Login = () => {
+
+  const options = {
+    animationData: donationAnimation,  // Use the imported animation data
+    loop: true,                       // Set loop to true for continuous playback
+    autoplay: true,                   // Set autoplay to true to start animation automatically
+  };
+
+  // Use the useLottie hook to get the View component
+  const { View } = useLottie(options); 
+
+
   const { handleLogin, handleGoogleSignIn, setUser } = useContext(AuthContex);
   const location = useLocation();
   const navigate = useNavigate();
@@ -103,7 +116,10 @@ const Login = () => {
 
   return (
     <div className="max-w-sm mx-auto my-12 p-6  shadow-lg border-2">
-      <h2 className="text-2xl font-bold text-center mb-6">Login your account</h2>
+      <h2 className="text-2xl font-bold text-orange-500 text-center mb-6">Login your account</h2>
+      <div className='w-32 mx-auto'>
+      {View}
+      </div>
       <form onSubmit={handleLogInFrom} className="space-y-4">
         <div>
           <label className="block text-sm font-medium text-gray-700">Email</label>

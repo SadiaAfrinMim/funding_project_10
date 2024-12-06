@@ -1,6 +1,11 @@
-import React from 'react';
+import Aos from 'aos';
+import React, { useEffect } from 'react';
 
 const Footer = () => {
+  
+    useEffect(()=>{
+        Aos.init({duration : 2000});
+      },[])
     return (
       <div>
           <footer className="footer bg-base-200 text-base-content p-10">

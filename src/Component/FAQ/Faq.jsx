@@ -1,12 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import img from '../../assets/faq.jpg'
 import { Typewriter } from 'react-simple-typewriter';
+import Aos from 'aos';
+import { useLottie } from "lottie-react";
+
+import lottie from '../../assets/Animation - 1733491909947.json'
 
 const Faq = () => {
+  
+    useEffect(()=>{
+        Aos.init({duration : 2000});
+      },[])
+      const options = {
+        animationData: lottie,  // Use the imported animation file here
+        loop: true,             // Set to `true` for continuous loop
+        autoplay: true,         // Set to `true` to autoplay the animation
+      };
+    
+      // Use the Lottie hook
+      const { View } = useLottie(options); 
   return (
-    <div className=" rounded-none mx-auto p-6  shadow-lg">
+    <div  className=" overflow-hidden rounded-none mx-auto py-8  shadow-lg">
       <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
-        <div>
+        <div  data-aos="fade-right" >
         <h2 className="text-3xl font-bold text-center text-[#FF851B] mb-6">
         <Typewriter
           words={[" Frequently Asked Questions"]}
@@ -59,8 +75,8 @@ const Faq = () => {
         </div>
       </div>
         </div>
-        <div className=' shadow-2xl'>
-            <img className='rounded-xl' src={img} alt="" />
+        <div   className=' shadow-2xl '>
+            {View}
         </div>
       </div>
     </div>

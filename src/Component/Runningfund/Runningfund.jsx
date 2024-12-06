@@ -5,6 +5,11 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 
 const RunningFund = () => {
+  
+ 
+    useEffect(()=>{
+        AOS.init({duration : 2000});
+      },[])
   const [campaigns, setCampaigns] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -39,7 +44,7 @@ const RunningFund = () => {
   const currentDate = new Date();
 
   return (
-    <div data-aos="zoom-in" className="max-w-7xl mx-auto py-10 px-4">
+    <div  className=" overflow-hidden  mx-auto py-10 px-4">
       <h2 className="text-4xl font-bold text-center text-[#FF851B] mb-8">
         <Typewriter
           words={["Running Campaigns"]}
@@ -64,7 +69,7 @@ const RunningFund = () => {
       ) : campaigns.length === 0 ? (
         <p className="text-center text-gray-600">No active campaigns at the moment.</p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div data-aos="zoom-in" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {campaigns.map((campaign) => (
             <div
               key={campaign._id}

@@ -5,7 +5,7 @@ import 'aos/dist/aos.css'
 
 const Ourmission = () => {
   useEffect(() => {
-    AOS.init(3000); // Initialize AOS animations
+    AOS.init(2000); // Initialize AOS animations
   }, []);
  
   const missions = [
@@ -40,8 +40,8 @@ const Ourmission = () => {
   ];
 
   return (
-    <section data-aos="zoom-out-left" className="py-12 ">
-      <div className="max-w-7xl mx-auto px-4 overflow-hidden">
+    <section  className="py-12 overflow-hidden">
+      <div data-aos="fade-down-right" className="mx-auto px-4 overflow-hidden">
         <h2 className="text-4xl font-bold text-center text-[#FF851B] mb-4">
         <Typewriter
             words={['OUR MISSION']}

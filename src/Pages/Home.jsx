@@ -9,7 +9,7 @@ import Ourmission from '../Component/Ourmission/Ourmission';
 
 const Home = () => {
     return (
-        <div>
+        <div className='w-11/12 mx-auto'>
             <Banner></Banner>
            
             <Outlet></Outlet>

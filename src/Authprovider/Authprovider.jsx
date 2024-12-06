@@ -41,7 +41,7 @@ const Authprovider = ({ children }) => {
 
     }
     const logOut=()=>{
-      toast("Log Out Successfully!")
+      
       return signOut(auth)
     }
     useEffect(() => {

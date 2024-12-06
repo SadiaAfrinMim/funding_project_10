@@ -11,7 +11,7 @@ const Mainlayout = () => {
     // const preference = window.matchMedia("(prefers-color-scheme: dark)").matches;
     // const [isDark, setIsDark] = useLocalStorage("isDark", preference);
     return (
-        <div data-theme={isDark ? "dark" : "light"}  isChecked={isDark} handleChange={() => setIsDark(!isDark)}>
+        <div className='' data-theme={isDark ? "dark" : "light"}  isChecked={isDark} handleChange={() => setIsDark(!isDark)}>
             <Navbar></Navbar>
             <Outlet></Outlet>
             <Footer></Footer>

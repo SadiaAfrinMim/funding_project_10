@@ -17,6 +17,7 @@ import Update from '../Pages/Update';
 import Privateroute from './privateRoute';
 import Reset from '../Component/Reset';
 import Error from '../Pages/Error';
+import Lottie from '../Component/Lottie';
 
 const router = createBrowserRouter([
     {
@@ -87,6 +88,10 @@ const router = createBrowserRouter([
     {
       path:"/reset",
       element:<Reset></Reset>
+    },
+    {
+      path:'/lo',
+      element:<Lottie></Lottie>
     }
     
     ]

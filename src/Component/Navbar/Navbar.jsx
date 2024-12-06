@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { AuthContex } from '../../Authprovider/Authprovider';
 import { Toggle } from '../Darkmode/Darkmode';
+import Swal from 'sweetalert2';
 
 const Navbar = () => {
   const { user, logOut, isDark, setIsDark } = useContext(AuthContex);
@@ -78,11 +79,54 @@ const Navbar = () => {
     </>
   );
 
-  const handleLogin = () => navigate('/login');
-  const handleRegister = () => navigate('/register');
+  const handleLogin = () => {
+    Swal.fire({
+      title: 'Log in',
+      text: 'Are you sure you want to log in?',
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, log in',
+      cancelButtonText: 'Cancel',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigate('/login');
+      }
+    });
+  };
+
+  const handleRegister = () => {
+    Swal.fire({
+      title: 'Register',
+      text: 'Are you sure you want to register?',
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, register',
+      cancelButtonText: 'Cancel',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigate('/register');
+      }
+    });
+  };
+
+  const handleLogout = () => {
+    Swal.fire({
+      title: 'Log out',
+      text: 'Are you sure you want to log out?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, log out',
+      cancelButtonText: 'Cancel',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        logOut();
+        Swal.fire('Logged out', 'You have been logged out successfully.', 'success');
+      }
+    });
+  };
 
   return (
-    <div className="navbar fixed top-0 left-0 right-0 z-50 bg-base-100">
+    <div className="navbar overflow-hidden w-full mx-auto sticky top-0 left-0 right-0 z-50 bg-base-100">
       <div className="navbar-start">
         <div className="dropdown lg:hidden">
           <button
@@ -116,7 +160,7 @@ const Navbar = () => {
           )}
         </div>
         <Link to="/" className="btn btn-ghost text-xl">
-       SadiaFund 🤝
+          SadiaFund 🤝
         </Link>
       </div>
 
@@ -155,7 +199,7 @@ const Navbar = () => {
               />
 
               {/* Display Name on Hover */}
-              <div className="absolute whitespace-nowrap w-full  text-center    rounded-lg mt-2 opacity-0 group-hover:opacity-100  transition-opacity duration-300">
+              <div className="absolute whitespace-nowrap w-full text-center rounded-lg mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 {user.displayName}
               </div>
             </div>
@@ -163,7 +207,7 @@ const Navbar = () => {
             {/* Log out Button */}
             <button
               className="btn btn-error text-white btn-sm rounded-none"
-              onClick={logOut}
+              onClick={handleLogout}
             >
               Log out
             </button>
