@@ -4,7 +4,7 @@ import { AuthContex } from '../Authprovider/Authprovider';
 import { Typewriter } from 'react-simple-typewriter';
 
 const MyCampaigns = () => {
-  const { user } = useContext(AuthContex);
+  const { user } = useContext(AuthContex); // Get the user data from context
   const [donations, setDonations] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -16,9 +16,12 @@ const MyCampaigns = () => {
           throw new Error('Failed to fetch donations');
         }
         const data = await response.json();
-        setDonations(data);
+        
+        // Filter donations by the logged-in user's email
+        const userDonations = data.filter((donation) => donation.userEmail === user.email);
+        setDonations(userDonations);
 
-        // Simulate a delay of 2 seconds to show the spinner
+        // Simulate a delay to show the spinner
         setTimeout(() => {
           setLoading(false);
         }, 2000);
@@ -35,14 +38,14 @@ const MyCampaigns = () => {
     };
 
     fetchUserDonations();
-  }, []);
+  }, [user.email]); // Depend on user's email to re-fetch data if needed
 
   return (
     <div className="max-w-6xl mx-auto py-10 px-6">
       <ToastContainer />
 
       {loading ? (
-        // Show spinner for 2 seconds after fetching the data
+        // Show spinner while loading donations
         <div className="flex justify-center items-center h-screen">
           <div className="animate-spin border-4 border-t-4 border-orange-500 rounded-full w-16 h-16 mb-6"></div>
         </div>
@@ -59,6 +62,7 @@ const MyCampaigns = () => {
               delaySpeed={1000}
             />
           </h2>
+          
           {donations.length === 0 ? (
             <p className="text-center text-lg">
               No donations found. Start contributing today!
@@ -78,8 +82,7 @@ const MyCampaigns = () => {
                   <div className="p-4">
                     <h3 className="text-xl font-bold text-orange-500 mb-2">{donation.campaignTitle}</h3>
                     <p className="line-clamp-3">{donation.description}</p>
-                    <p className="line-clamp-3 font-bold">Email: {donation.
-userEmail}</p>
+                    <p className="line-clamp-3 font-bold">Email: {donation.userEmail}</p>
                     <p className="mt-2">
                       <strong>Minimum Donation:</strong> ${donation.minimumDonation}
                     </p>
@@ -101,3 +104,4 @@ userEmail}</p>
 };
 
 export default MyCampaigns;
+

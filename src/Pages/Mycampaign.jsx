@@ -69,6 +69,7 @@ const Mycampaign = () => {
             <th className="px-4 py-2 border">Image</th>
             <th className="px-4 py-2 border">Title</th>
             <th className="px-4 py-2 border">Description</th>
+            <th className="px-4 py-2 border">user</th>
             <th className="px-4 py-2 border">Type</th>
             <th className="px-4 py-2 border">Actions</th>
           </tr>
@@ -85,6 +86,7 @@ const Mycampaign = () => {
               </td>
               <td className="px-4 py-2">{campaign.title}</td>
               <td className="px-4 py-2">{campaign.description}</td>
+              <td className="px-4 py-2">{campaign.email}</td>
               <td className="px-4 py-2">{campaign.type}</td>
              
               <td className="px-4 py-2 flex gap-2">
