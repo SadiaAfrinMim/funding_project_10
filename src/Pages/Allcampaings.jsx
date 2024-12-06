@@ -31,6 +31,7 @@ const AllCampaigns = () => {
               <th className="px-4 py-2 border">Description</th>
               <th className="px-4 py-2 border">Type</th>
               <th className="px-4 py-2 border">Amount</th>
+              <th className="px-4 py-2 border">User</th>
               <th className="px-4 py-2 border">End Date</th>
               <th className="px-4 py-2 border">Action</th>
             </tr>
@@ -39,11 +40,11 @@ const AllCampaigns = () => {
             {campaigns.map((campaign) => (
               <tr key={campaign._id} className="border-b hover:bg-gray-50">
                 {/* Image */}
-                <td className="px-4 py-2">
+                <td className=" py-2">
                   <img
                     src={campaign.image}
                     alt={campaign.title}
-                    className="w-20 h-20 object-cover rounded-md mx-auto"
+                    className="w-40 h-20 object-cover rounded-md mx-auto"
                   />
                 </td>
 
@@ -62,6 +63,7 @@ const AllCampaigns = () => {
 
                 {/* Amount */}
                 <td className="px-4 py-2 text-center">${campaign.minimumDonation}</td>
+                <td className="px-4 py-2 text-center">${campaign.email}</td>
 
                 {/* End Date */}
                 <td className="px-4 py-2 text-center">{campaign.deadline}</td>
@@ -70,7 +72,7 @@ const AllCampaigns = () => {
                 <td className="px-4 py-2 text-center">
                   <Link
                     to={`/campaigns/${campaign._id}`}
-                    className="btn btn-sm bg-yellow-400 hover:bg-yellow-500 text-white"
+                    className="btn  btn-sm bg-yellow-400 hover:bg-yellow-500 whitespace-nowrap text-white"
                   >
                     See More
                   </Link>

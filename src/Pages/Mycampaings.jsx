@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { toast, ToastContainer } from 'react-toastify';
-import { AuthContex } from '../Authprovider/Authprovider';
-import { Typewriter } from 'react-simple-typewriter';
+import React, { useContext, useEffect, useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import { AuthContex } from "../Authprovider/Authprovider";
+import { Typewriter } from "react-simple-typewriter";
 
-const Mycampaings = () => {
+const MyCampaigns = () => {
   const { user } = useContext(AuthContex);
   const [donations, setDonations] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -16,7 +16,12 @@ const Mycampaings = () => {
           throw new Error("Failed to fetch donations");
         }
         const data = await response.json();
-        setDonations(data);
+
+        // Filter donations to show only those created by the logged-in user
+        const userDonations = data.filter(
+          (donation) => donation.userEmail === user.email
+        );
+        setDonations(userDonations);
       } catch (error) {
         console.error("Error fetching donations:", error);
         toast.error("Failed to load your donations.", {
@@ -29,27 +34,26 @@ const Mycampaings = () => {
     };
 
     fetchUserDonations();
-  }, []);
+  }, [user.email]);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p className="text-center text-lg">Loading...</p>;
 
   return (
     <div className="max-w-6xl mx-auto py-10 px-6">
       <ToastContainer />
       <h2 className="text-3xl font-bold text-orange-500 text-center mb-6">
-      <Typewriter
-            words={['My Donated Campaigns']}
-            loop={5}
-            cursor
-            cursorStyle='_'
-            typeSpeed={70}
-            deleteSpeed={50}
-            delaySpeed={1000}
-           
-          />
+        <Typewriter
+          words={["My Donated Campaigns"]}
+          loop={5}
+          cursor
+          cursorStyle="_"
+          typeSpeed={70}
+          deleteSpeed={50}
+          delaySpeed={1000}
+        />
       </h2>
       {donations.length === 0 ? (
-        <p className="text-center text-lg ">
+        <p className="text-center text-lg">
           No donations found. Start contributing today!
         </p>
       ) : (
@@ -57,7 +61,7 @@ const Mycampaings = () => {
           {donations.map((donation) => (
             <div
               key={donation._id}
-              className=" shadow-md rounded-lg overflow-hidden border border-gray-200"
+              className="shadow-md rounded-lg overflow-hidden border border-gray-200"
             >
               <img
                 src={donation.image}
@@ -65,16 +69,20 @@ const Mycampaings = () => {
                 className="w-full h-48 object-cover"
               />
               <div className="p-4">
-                <h3 className="text-xl font-bold mb-2">{donation.title}</h3>
+                <h3 className="text-xl font-bold mb-2">{donation.
+campaignTitle}</h3>
                 <p className="line-clamp-3">{donation.description}</p>
-                <p className=" mt-2">
-                  <strong>Minimum Donation:</strong> ${donation.minimumDonation}
+                <p className="mt-2">
+                  <strong>Minimum Donation:</strong> $
+                  {donation.minimumDonation}
                 </p>
-                <p className="">
-                  <strong>Deadline:</strong> {new Date(donation.deadline).toLocaleDateString()}
+                <p>
+                  <strong>Deadline:</strong>{" "}
+                  {new Date(donation.deadline).toLocaleDateString()}
                 </p>
-                <p className="">
-                  <strong>Donated On:</strong> {new Date(donation.donationOn).toLocaleDateString()}
+                <p>
+                  <strong>Donated On:</strong>{" "}
+                  {new Date(donation.donationOn).toLocaleDateString()}
                 </p>
               </div>
             </div>
@@ -85,4 +93,4 @@ const Mycampaings = () => {
   );
 };
 
-export default Mycampaings;
+export default MyCampaigns;
