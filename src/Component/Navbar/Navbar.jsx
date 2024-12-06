@@ -1,17 +1,13 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { AuthContex } from '../../Authprovider/Authprovider';
-// import useLocalStorage from 'use-local-storage';
 import { Toggle } from '../Darkmode/Darkmode';
-// import "../../App";
 
 const Navbar = () => {
- 
-  const { user, logOut,isDark, setIsDark } = useContext(AuthContex);
+  const { user, logOut, isDark, setIsDark } = useContext(AuthContex);
   const navigate = useNavigate();
-  // const preference = window.matchMedia("(prefers-color-scheme: dark)").matches;
-  // const [isDark, setIsDark] = useLocalStorage("isDark", preference);
 
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const Navlink = (
     <>
@@ -77,11 +73,8 @@ const Navbar = () => {
               My Donations
             </NavLink>
           </li>
-         
         </>
-        
       )}
-       
     </>
   );
 
@@ -89,10 +82,15 @@ const Navbar = () => {
   const handleRegister = () => navigate('/register');
 
   return (
-    <div className="navbar">
+    <div className="navbar fixed top-0 left-0 right-0 z-50 bg-base-100">
       <div className="navbar-start">
-        <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+        <div className="dropdown lg:hidden">
+          <button
+            tabIndex={0}
+            role="button"
+            className="btn btn-ghost"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -107,70 +105,70 @@ const Navbar = () => {
                 d="M4 6h16M4 12h8m-8 6h16"
               />
             </svg>
-          </div>
-          <ul
-            tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
-          >
-            {Navlink}
-          </ul>
+          </button>
+          {isMenuOpen && (
+            <ul
+              tabIndex={0}
+              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+            >
+              {Navlink}
+            </ul>
+          )}
         </div>
         <Link to="/" className="btn btn-ghost text-xl">
-        SadiaFund 🤝
+       SadiaFund 🤝
         </Link>
       </div>
+
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{Navlink}</ul>
       </div>
+
       <div className="navbar-end space-x-2">
-      <div >
-            <Toggle  isChecked={isDark} handleChange={() => setIsDark(!isDark)} />
-           
+        <div>
+          <Toggle isChecked={isDark} handleChange={() => setIsDark(!isDark)} />
+        </div>
+        {!user ? (
+          <>
+            <button
+              className="btn btn-primary rounded-none mr-2"
+              onClick={handleLogin}
+            >
+              Log in
+            </button>
+
+            <button
+              className="btn bg-orange-500 rounded-none"
+              onClick={handleRegister}
+            >
+              Register
+            </button>
+          </>
+        ) : (
+          <div className="flex items-center space-x-2">
+            {/* User Avatar */}
+            <div className="relative group">
+              <img
+                src={user.photoURL}
+                alt="User Avatar"
+                className="w-10 h-10 rounded-full"
+              />
+
+              {/* Display Name on Hover */}
+              <div className="absolute whitespace-nowrap w-full  text-center    rounded-lg mt-2 opacity-0 group-hover:opacity-100  transition-opacity duration-300">
+                {user.displayName}
+              </div>
+            </div>
+
+            {/* Log out Button */}
+            <button
+              className="btn btn-error text-white btn-sm rounded-none"
+              onClick={logOut}
+            >
+              Log out
+            </button>
           </div>
-          {!user ? (
-  <>
-    {/* Login Button */}
-    <button 
-      className="btn btn-primary rounded-none mr-2" 
-      onClick={handleLogin}
-    >
-      Log in
-    </button>
-
-    {/* Register Button */}
-    <button 
-      className="btn bg-orange-500 rounded-none" 
-      onClick={handleRegister}
-    >
-      Register
-    </button>
-  </>
-) : (
-  <div className="flex items-center space-x-2">
-    {/* User Avatar */}
-    <div className="relative group">
-      <img 
-        src={user.photoURL} 
-        alt="User Avatar" 
-        className="w-10 h-10 rounded-full"
-      />
-
-      {/* Display Name on Hover */}
-      <div className="absolute w-full p-2 text-center bg-black text-white rounded-lg mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-        {user.displayName}
-      </div>
-    </div>
-
-    {/* Log out Button */}
-    <button 
-      className="btn btn-error rounded-none"
-      onClick={logOut}
-    >
-      Log out
-    </button>
-  </div>
-)}
-
+        )}
       </div>
     </div>
   );
