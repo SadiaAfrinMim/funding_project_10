@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContex } from '../Authprovider/Authprovider';
@@ -8,6 +8,9 @@ import { useLottie } from "lottie-react";
 import donationAnimation from '../assets/donation.json';
 
 const Login = () => {
+  useEffect(()=>{
+    document.title('Login||SadiaFund')
+  },[])
 
   const options = {
     animationData: donationAnimation,  // Use the imported animation data

@@ -6,6 +6,9 @@ import { AuthContex } from '../Authprovider/Authprovider';
 
 
 const Error = () => {
+    useEffect(()=>{
+        document.title('Error||SadiaFund')
+      },[])
     const { isDark,setIsDark } = useContext(AuthContex);
     return (
         <div data-theme={isDark ? "dark" : "light"}  isChecked={isDark} handleChange={() => setIsDark(!isDark)}>

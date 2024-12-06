@@ -6,6 +6,9 @@ import { AuthContex } from "../Authprovider/Authprovider";
 import Swal from 'sweetalert2'; // Import SweetAlert2
 
 const CampaignDetails = () => {
+  useEffect(()=>{
+    document.title('CampaignDetails||SadiaFund')
+  },[])
   const { user, displayName } = useContext(AuthContex);
   const data = useLoaderData();
   const navigate = useNavigate(); // Initialize useNavigate

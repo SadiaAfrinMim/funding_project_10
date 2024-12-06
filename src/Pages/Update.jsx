@@ -3,6 +3,9 @@ import { useLoaderData } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 const Update = () => {
+  useEffect(()=>{
+    document.title('Update||SadiaFund')
+  },[])
   const campaign = useLoaderData();
   const { _id, title, image, description, type, minimumDonation, deadline } = campaign;
 

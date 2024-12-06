@@ -1,9 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { AuthContex } from "../Authprovider/Authprovider";
 import { Typewriter } from "react-simple-typewriter";
 import Swal from "sweetalert2"; // Import SweetAlert2
 
 const AddCampaign = () => {
+  useEffect(()=>{
+    document.title('Addcampaign||SadiaFund')
+  },[])
   const { user, displayName } = useContext(AuthContex);
 
   const handleSubmit = (e) => {
