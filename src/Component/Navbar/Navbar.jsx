@@ -175,14 +175,14 @@ const Navbar = () => {
         {!user ? (
           <>
             <button
-              className="btn btn-primary rounded-none mr-2"
+              className="py-2 px-3 bg-blue-600 rounded-none "
               onClick={handleLogin}
             >
               Log in
             </button>
 
             <button
-              className="btn bg-orange-500 rounded-none"
+              className="py-2 px-2 bg-orange-500  rounded-none"
               onClick={handleRegister}
             >
               Register

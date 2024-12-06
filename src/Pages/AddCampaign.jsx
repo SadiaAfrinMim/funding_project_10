@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { AuthContex } from "../Authprovider/Authprovider";
 import { Typewriter } from "react-simple-typewriter";
+import Swal from "sweetalert2"; // Import SweetAlert2
 
 const AddCampaign = () => {
   const { user, displayName } = useContext(AuthContex);
@@ -36,13 +37,30 @@ const AddCampaign = () => {
       body: JSON.stringify(campaign),
     })
       .then((res) => res.json())
-      .then((data) => console.log("Campaign Added:", data))
-      .catch((error) => console.error("Error:", error));
+      .then((data) => {
+        // On successful campaign creation, show SweetAlert
+        Swal.fire({
+          title: "Success!",
+          text: "Your campaign has been added successfully.",
+          icon: "success",
+          confirmButtonText: "Okay",
+        });
+      })
+      .catch((error) => {
+        // Show SweetAlert for any error
+        Swal.fire({
+          title: "Error!",
+          text: "There was an error while adding the campaign.",
+          icon: "error",
+          confirmButtonText: "Try Again",
+        });
+        console.error("Error:", error);
+      });
   };
 
   return (
-    <div className="min-h-screen  flex items-center justify-center py-10 px-4">
-      <div className="w-full max-w-3xl border-2 border-gray-300  shadow-lg p-8">
+    <div className="min-h-screen flex items-center justify-center py-10 px-4">
+      <div className="w-full max-w-3xl border-2 border-gray-300 shadow-lg p-8">
         <h2 className="text-3xl font-bold text-center text-[#FF851B] mb-8">
           <Typewriter
             words={['Add New Campaign']}
@@ -52,7 +70,6 @@ const AddCampaign = () => {
             typeSpeed={70}
             deleteSpeed={50}
             delaySpeed={1000}
-
           />
         </h2>
         <form onSubmit={handleSubmit} className="space-y-6">

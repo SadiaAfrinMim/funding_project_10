@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { FaEdit } from "react-icons/fa";
+import { FaEdit, FaEye } from "react-icons/fa";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import { Link, useLoaderData } from "react-router-dom";
 import { Typewriter } from "react-simple-typewriter";
@@ -103,6 +103,9 @@ const Mycampaign = () => {
                 >
                   <RiDeleteBin6Fill className="text-3xl font-bold text-white" />
                 </button>
+                <Link  className="btn bg-orange-500 p-2 rounded-md" to={`/campaigns/${campaign._id}`} >
+                  <FaEye className="text-3xl bg-orange-500 font-bold text-white"></FaEye>
+                </Link>
               </td>
             </tr>
           ))}
