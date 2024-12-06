@@ -73,7 +73,7 @@ const CampaignDetails = () => {
       deadline,
       userEmail: user.email,
       username: user.displayName,
-      donationOn
+      donationOn,
     };
 
     try {
@@ -89,11 +89,17 @@ const CampaignDetails = () => {
         throw new Error("Failed to donate");
       }
 
-      Swal.fire("Thank you for your donation!", {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: true,
+      Swal.fire({
+        icon: 'success',
+        title: 'Thank You for Your Donation!',
+        html: `
+          <p><strong>Name:</strong> ${user.displayName || "Anonymous"}</p>
+          <p><strong>Email:</strong> ${user.email || "N/A"}</p>
+          <p>Your contribution means a lot to us!</p>
+        `,
+        confirmButtonColor: '#3085d6',
       });
+
       setIsDonationComplete(true);
     } catch (error) {
       console.error("Error:", error);

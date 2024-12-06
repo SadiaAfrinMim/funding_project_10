@@ -18,8 +18,10 @@ const AllCampaigns = () => {
             typeSpeed={70}
             deleteSpeed={50}
             delaySpeed={1000}
+           
             
           />
+           ({campaigns.length})
       </h1>
 
       <div className="overflow-x-auto">
@@ -31,6 +33,7 @@ const AllCampaigns = () => {
               <th className="px-4 py-2 border">Description</th>
               <th className="px-4 py-2 border">Type</th>
               <th className="px-4 py-2 border">Amount</th>
+              <th className="px-4 py-2 border">Name</th>
               <th className="px-4 py-2 border">User</th>
               <th className="px-4 py-2 border">End Date</th>
               <th className="px-4 py-2 border">Action</th>
@@ -63,6 +66,7 @@ const AllCampaigns = () => {
 
                 {/* Amount */}
                 <td className="px-4 py-2 text-center">${campaign.minimumDonation}</td>
+                <td className="px-4 py-2 whitespace-nowrap text-center">{campaign.name}</td>
                 <td className="px-4 py-2 text-center">{campaign.email}</td>
 
                 {/* End Date */}
