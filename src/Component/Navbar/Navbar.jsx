@@ -36,8 +36,7 @@ const Navbar = () => {
           All Campaigns
         </NavLink>
       </li>
-      {user && (
-        <>
+    
           <li>
             <NavLink
               to="/add-campaign"
@@ -75,8 +74,8 @@ const Navbar = () => {
             </NavLink>
           </li>
         </>
-      )}
-    </>
+      
+    
   );
 
   const handleLogin = () => {
@@ -159,7 +158,7 @@ const Navbar = () => {
             </ul>
           )}
         </div>
-        <Link to="/" className="btn btn-ghost text-xl">
+        <Link to="/" className="font-bold whitespace-nowrap text-2xl">
           SadiaFund 🤝
         </Link>
       </div>
