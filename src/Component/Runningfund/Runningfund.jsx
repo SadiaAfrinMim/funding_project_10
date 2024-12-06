@@ -5,11 +5,11 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 
 const RunningFund = () => {
-  
- 
-    useEffect(()=>{
-        AOS.init({duration : 2000});
-      },[])
+
+
+  useEffect(() => {
+    AOS.init({ duration: 2000 });
+  }, [])
   const [campaigns, setCampaigns] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -21,7 +21,7 @@ const RunningFund = () => {
     const fetchCampaigns = async () => {
       try {
         setLoading(true);
-        const response = await fetch("http://localhost:5000/campaigns?limit=6"); // Fetch only 6 campaigns
+        const response = await fetch("https://user-server-side-management-system.vercel.app/campaigns?limit=6"); // Fetch only 6 campaigns
         if (!response.ok) {
           throw new Error("Failed to fetch campaigns");
         }
@@ -44,7 +44,7 @@ const RunningFund = () => {
   const currentDate = new Date();
 
   return (
-    <div  className=" overflow-hidden  mx-auto py-10 px-4">
+    <div className=" overflow-hidden  mx-auto py-10 px-4">
       <h2 className="text-4xl font-bold text-center text-[#FF851B] mb-8">
         <Typewriter
           words={["Running Campaigns"]}
@@ -76,9 +76,8 @@ const RunningFund = () => {
               className="w-full shadow-xl border border-[#FF851B] transform transition duration-500 hover:scale-105 relative"
             >
               <div
-                className={`absolute top-2 right-2 px-3 py-1 text-white font-bold text-sm rounded-full ${
-                  new Date(campaign.deadline) > currentDate ? "bg-green-500" : "bg-gray-500"
-                }`}
+                className={`absolute top-2 right-2 px-3 py-1 text-white font-bold text-sm rounded-full ${new Date(campaign.deadline) > currentDate ? "bg-green-500" : "bg-gray-500"
+                  }`}
               >
                 Active
               </div>

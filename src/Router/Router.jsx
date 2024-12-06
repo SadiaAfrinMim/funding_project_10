@@ -20,85 +20,86 @@ import Error from '../Pages/Error';
 import Lottie from '../Component/Lottie';
 
 const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Mainlayout></Mainlayout>,
-      errorElement:<Error></Error>,
-      children:[
-        { path: "/",
-          element:<Home></Home>,
-         
-          children:[
-          
-            
-            
-            {
-              path: "/",
-              element: <RunningFund />,
-              loader: () =>
-                fetch(`http://localhost:5000/campaigns`).then((res) => res.json()),
-              
-            }
-            
+  {
+    path: "/",
+    element: <Mainlayout></Mainlayout>,
+    errorElement: <Error></Error>,
+    children: [
+      {
+        path: "/",
+        element: <Home></Home>,
+
+        children: [
+
+
+
+          {
+            path: "/",
+            element: <RunningFund />,
+            loader: () =>
+              fetch(`https://user-server-side-management-system.vercel.app/campaigns`).then((res) => res.json()),
+
+          }
+
         ]
 
-        },
-        {
-          path: "/add-campaign",
-          element:<Privateroute><AddCampaign></AddCampaign></Privateroute>,
-        },
-        {
-          path: "/my-campaigns",
-          element:<Privateroute><Mycampaign></Mycampaign></Privateroute>,
-          loader:()=>fetch('http://localhost:5000/campaigns')
-        },
-        {
-          path: '/campaigns/:id',
-          element: <Privateroute><CampaignDetails></CampaignDetails></Privateroute>,
-          loader: ({ params }) => fetch(`http://localhost:5000/campaigns/${params.id}`)
+      },
+      {
+        path: "/add-campaign",
+        element: <Privateroute><AddCampaign></AddCampaign></Privateroute>,
+      },
+      {
+        path: "/my-campaigns",
+        element: <Privateroute><Mycampaign></Mycampaign></Privateroute>,
+        loader: () => fetch('https://user-server-side-management-system.vercel.app/campaigns')
+      },
+      {
+        path: '/campaigns/:id',
+        element: <Privateroute><CampaignDetails></CampaignDetails></Privateroute>,
+        loader: ({ params }) => fetch(`https://user-server-side-management-system.vercel.app/campaigns/${params.id}`)
 
-          
-        },
-        {
-          path: "/campaigns",
-          element: <Allcampaigns />,
-          loader: () =>
-            fetch(`http://localhost:5000/campaigns`).then((res) => res.json()),
-          
-        },
-        {
-          path: "/my-donations",
-          element:<Privateroute><Mycampaings></Mycampaings></Privateroute>
-        },
-        {
-          path:"/donation/:id",
-          element:<Update></Update>,
-          loader:({params})=>fetch(`http://localhost:5000/donation/${params.id}`)
-        },
-        
-          {
+
+      },
+      {
+        path: "/campaigns",
+        element: <Allcampaigns />,
+        loader: () =>
+          fetch(`https://user-server-side-management-system.vercel.app/campaigns`).then((res) => res.json()),
+
+      },
+      {
+        path: "/my-donations",
+        element: <Privateroute><Mycampaings></Mycampaings></Privateroute>
+      },
+      {
+        path: "/donation/:id",
+        element: <Update></Update>,
+        loader: ({ params }) => fetch(`https://user-server-side-management-system.vercel.app/donation/${params.id}`)
+      },
+
+      {
         path: "/register",
-        element:<Registration ></Registration>
-        
+        element: <Registration ></Registration>
+
       },
       {
         path: "/login",
-        element:<Login></Login>
-    },
-    {
-      path:"/reset",
-      element:<Reset></Reset>
-    },
-    {
-      path:'/lo',
-      element:<Lottie></Lottie>
-    }
-    
-    ]
-    },
-   
-   
+        element: <Login></Login>
+      },
+      {
+        path: "/reset",
+        element: <Reset></Reset>
+      },
+      {
+        path: '/lo',
+        element: <Lottie></Lottie>
+      }
 
-  ]);
+    ]
+  },
+
+
+
+]);
 
 export default router;

@@ -77,7 +77,7 @@ const CampaignDetails = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:5000/donation", {
+      const response = await fetch("https://user-server-side-management-system.vercel.app/donation", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -145,20 +145,19 @@ const CampaignDetails = () => {
       <div className="text-center mt-8">
         <button
           onClick={handleDonate}
-          className={`px-8 py-3 text-lg font-bold text-white rounded-none shadow-md transition duration-300 ${
-            isDeadlineOver || isDonationComplete
+          className={`px-8 py-3 text-lg font-bold text-white rounded-none shadow-md transition duration-300 ${isDeadlineOver || isDonationComplete
               ? "bg-gray-400 cursor-not-allowed"
               : "bg-gradient-to-r from-orange-500 rounded-none to-yellow-400 hover:scale-105"
-          }`}
+            }`}
           disabled={isSubmitting || isDonationComplete || isDeadlineOver}
         >
           {isSubmitting
             ? "Processing..."
             : isDonationComplete
-            ? "Donated"
-            : isDeadlineOver
-            ? "Closed"
-            : "Donate"}
+              ? "Donated"
+              : isDeadlineOver
+                ? "Closed"
+                : "Donate"}
         </button>
 
         {/* Close Button */}

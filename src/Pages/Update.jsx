@@ -16,7 +16,7 @@ const Update = () => {
     const description = form.description.value;
     const minimumDonation = form.minimumDonation.value;
     const deadline = form.deadline.value;
-  
+
     const updatedCampaign = {
       image,
       title,
@@ -25,8 +25,8 @@ const Update = () => {
       minimumDonation,
       deadline,
     };
-  
-    fetch(`http://localhost:5000/donation/${_id}`, {
+
+    fetch(`https://user-server-side-management-system.vercel.app/donation/${_id}`, {
       method: 'PUT',
       headers: {
         'content-type': 'application/json',
@@ -36,7 +36,7 @@ const Update = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log('Campaign updated successfully:', data);
-  
+
         // Show success message using SweetAlert2
         Swal.fire({
           title: 'Success!',
@@ -44,13 +44,13 @@ const Update = () => {
           icon: 'success',
           confirmButtonText: 'OK',
         });
-  
+
         // Alternatively, using toast
         // toast.success('Campaign updated successfully!');
       })
       .catch((error) => {
         console.error('Error updating campaign:', error);
-  
+
         // Show error message using SweetAlert2
         Swal.fire({
           title: 'Error!',
@@ -79,7 +79,7 @@ const Update = () => {
               placeholder="Enter image URL"
               className="input rounded-none input-bordered w-full"
               defaultValue={image}
-              
+
             />
           </div>
 
@@ -94,7 +94,7 @@ const Update = () => {
               placeholder="Enter campaign title"
               className="input rounded-none input-bordered w-full"
               defaultValue={title}
-             
+
             />
           </div>
 
@@ -107,9 +107,9 @@ const Update = () => {
               name="type"
               className="select select-bordered rounded-none w-full"
               defaultValue={type} // Correctly set the default value
-              
+
             >
-               <option value="">Select Type</option>
+              <option value="">Select Type</option>
               <option value="Environment">Environment</option>
               <option value="Education">Education</option>
               <option value="animal welfare">animal welfare</option>
@@ -128,7 +128,7 @@ const Update = () => {
               placeholder="Enter campaign description"
               className="textarea rounded-none textarea-bordered w-full"
               defaultValue={description} // Correctly use defaultValue for textarea
-              
+
             ></textarea>
           </div>
 
@@ -143,7 +143,7 @@ const Update = () => {
               placeholder="Enter minimum donation amount"
               className="input rounded-none input-bordered w-full"
               defaultValue={minimumDonation}
-            
+
             />
           </div>
 
@@ -157,7 +157,7 @@ const Update = () => {
               name="deadline"
               className="input rounded-none input-bordered w-full"
               defaultValue={deadline}
-              
+
             />
           </div>
 

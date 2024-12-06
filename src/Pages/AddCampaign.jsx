@@ -12,7 +12,7 @@ const AddCampaign = () => {
     const title = form.title.value;
     const type = form.type.value;
     const description = form.description.value;
-    const minimumDonation =  Number(form.minimumDonation.value);
+    const minimumDonation = Number(form.minimumDonation.value);
     const deadline = form.deadline.value;
 
     // Use user.email and displayName directly
@@ -28,7 +28,7 @@ const AddCampaign = () => {
     };
 
     // Make POST request to backend
-    fetch("http://localhost:5000/campaigns", {
+    fetch("https://user-server-side-management-system.vercel.app/campaigns", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -44,7 +44,7 @@ const AddCampaign = () => {
     <div className="min-h-screen  flex items-center justify-center py-10 px-4">
       <div className="w-full max-w-3xl border-2 border-gray-300  shadow-lg p-8">
         <h2 className="text-3xl font-bold text-center text-[#FF851B] mb-8">
-        <Typewriter
+          <Typewriter
             words={['Add New Campaign']}
             loop={5}
             cursor
@@ -52,7 +52,7 @@ const AddCampaign = () => {
             typeSpeed={70}
             deleteSpeed={50}
             delaySpeed={1000}
-            
+
           />
         </h2>
         <form onSubmit={handleSubmit} className="space-y-6">
