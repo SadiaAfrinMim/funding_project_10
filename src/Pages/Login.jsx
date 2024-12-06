@@ -3,8 +3,7 @@ import { FcGoogle } from 'react-icons/fc';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContex } from '../Authprovider/Authprovider';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import Swal from 'sweetalert2'; // Import SweetAlert
 
 const Login = () => {
   const { handleLogin, handleGoogleSignIn, setUser } = useContext(AuthContex);
@@ -19,11 +18,21 @@ const Login = () => {
     handleGoogleSignIn()
       .then((result) => {
         setUser(result.user);
-        toast.success('Successfully logged in!');
+        Swal.fire({
+          title: 'Success!',
+          text: 'Successfully logged in!',
+          icon: 'success',
+          confirmButtonText: 'OK',
+        });
         navigate(location?.state ? location.state : '/');
       })
       .catch((error) => {
-        toast.error(error.message || 'Failed to sign in with Google.');
+        Swal.fire({
+          title: 'Error!',
+          text: error.message || 'Failed to sign in with Google.',
+          icon: 'error',
+          confirmButtonText: 'Try Again',
+        });
       });
   };
 
@@ -32,32 +41,62 @@ const Login = () => {
     const email = e.target.email.value;
     const password = e.target.password.value;
     if (!email || !password) {
-      toast.error('Please enter both email and password.');
+      Swal.fire({
+        title: 'Error!',
+        text: 'Please enter both email and password.',
+        icon: 'error',
+        confirmButtonText: 'OK',
+      });
       return;
     }
     handleLogin(email, password)
       .then((result) => {
         setUser(result.user);
-        toast.success('Login Successfully!');
+        Swal.fire({
+          title: 'Success!',
+          text: 'Login Successfully!',
+          icon: 'success',
+          confirmButtonText: 'OK',
+        });
         navigate(location?.state ? location.state : '/');
       })
       .catch(() => {
         setError(true);
-        toast.error('Login failed. Please try again.');
+        Swal.fire({
+          title: 'Error!',
+          text: 'Login failed. Please try again.',
+          icon: 'error',
+          confirmButtonText: 'Try Again',
+        });
       });
   };
 
   const handleForgetPassword = () => {
     const email = emailRef.current.value;
     if (!email) {
-      toast.error('Please provide a valid email address.');
+      Swal.fire({
+        title: 'Error!',
+        text: 'Please provide a valid email address.',
+        icon: 'error',
+        confirmButtonText: 'OK',
+      });
     } else {
       sendPasswordResetEmail(auth, email)
         .then(() => {
-          toast.success('Password reset email sent.');
+          Swal.fire({
+            title: 'Success!',
+            text: 'Password reset email sent.',
+            icon: 'success',
+            confirmButtonText: 'OK',
+          });
         })
         .catch(() => {
-          toast.error('Error sending reset email. Please try again.');
+          Swal.fire({
+            title: 'Error!',
+            text: 'Error sending reset email. Please try again.',
+            icon: 'error',
+            confirmButtonText: 'Try Again',
+          });
         });
     }
   };
@@ -89,9 +128,9 @@ const Login = () => {
             required
           />
           <button
-            type="button "
+            type="button"
             onClick={() => setShowPassword(!showPassword)}
-            className="absolute  top-7 right-5"
+            className="absolute top-7 right-5"
           >
             {showPassword ? <FaEyeSlash /> : <FaEye />}
           </button>
@@ -123,7 +162,6 @@ const Login = () => {
       >
         <FcGoogle /> <span>Google Sign In</span>
       </button>
-      <ToastContainer />
     </div>
   );
 };

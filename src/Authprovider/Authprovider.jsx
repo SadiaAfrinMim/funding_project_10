@@ -10,10 +10,16 @@ export const AuthContex = createContext(null);
 
 const Authprovider = ({ children }) => {
     const [user,setUser] = useState(null)
-    const [loading,setLoading] = useState(true)
+   
     const provider = new GoogleAuthProvider()
     const [photoUrl,setphotoUrl] = useState("")
     const [username,setName] = useState("")
+    const [loading,setLoading] = useState(true)
+
+
+      
+   
+
     const preference = window.matchMedia("(prefers-color-scheme: dark)").matches;
   const [isDark, setIsDark] = useLocalStorage("isDark", preference);
    
@@ -68,7 +74,8 @@ const Authprovider = ({ children }) => {
         logOut,
         updateInformation,
         isDark,
-        setIsDark
+        setIsDark,
+        loading
     };
 
     return (

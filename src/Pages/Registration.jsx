@@ -2,22 +2,21 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AuthContex } from '../Authprovider/Authprovider';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { toast } from 'react-toastify';
+import Swal from 'sweetalert2'; // Import SweetAlert
 
 const Registration = () => {
     useEffect(() => {
-        document.title = 'Registration|| Donation'
-    }, [])
+        document.title = 'Registration || SadiaFund';
+    }, []);
 
     const { setUser, handleRegistration, updateInformation, setLoading } = useContext(AuthContex);
     const [error, setError] = useState("");
     const [showPassword, setShowPassword] = useState(false);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
         const name = e.target.name.value;
-
         const email = e.target.email.value;
         const image = e.target.photoUrl.value;
         const password = e.target.password.value;
@@ -38,28 +37,40 @@ const Registration = () => {
 
                 updateInformation({ photoURL: image, displayName: name })
                     .then(() => {
-                        toast.success("Successfully logged in!");
+                        Swal.fire({
+                            title: 'Success!',
+                            text: 'Registration successful!',
+                            icon: 'success',
+                            confirmButtonText: 'OK',
+                        });
                         setLoading(true);
                         setUser(user);
                         setTimeout(() => {
                             setLoading(false);
                         }, 100);
-
                         navigate("/");
                     })
                     .catch((err) => {
-
-                        toast.error("Failed to update user information.");
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'Failed to update user information.',
+                            icon: 'error',
+                            confirmButtonText: 'Try Again',
+                        });
                     });
             })
             .catch((err) => {
-
-                toast.error(error.message || "Failed to Registration.Your mail is already exist!");
+                Swal.fire({
+                    title: 'Error!',
+                    text: error.message || "Failed to Register. Your email may already exist!",
+                    icon: 'error',
+                    confirmButtonText: 'Try Again',
+                });
             });
     };
 
     return (
-        <div className="min-h-screen flex justify-center items-center ">
+        <div className="min-h-screen flex justify-center items-center">
             <div className="border-2 shadow-lg p-8 w-96">
                 <h2 className="text-3xl font-semibold text-center text-[#FF851B] mb-6">
                     Register Account

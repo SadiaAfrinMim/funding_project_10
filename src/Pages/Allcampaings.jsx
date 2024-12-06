@@ -63,10 +63,10 @@ const AllCampaigns = () => {
 
                 {/* Amount */}
                 <td className="px-4 py-2 text-center">${campaign.minimumDonation}</td>
-                <td className="px-4 py-2 text-center">${campaign.email}</td>
+                <td className="px-4 py-2 text-center">{campaign.email}</td>
 
                 {/* End Date */}
-                <td className="px-4 py-2 text-center">{campaign.deadline}</td>
+                <td className="px-4 py-2 whitespace-nowrap text-center">{campaign.deadline}</td>
 
                 {/* Action */}
                 <td className="px-4 py-2 text-center">

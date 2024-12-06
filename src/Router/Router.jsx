@@ -16,14 +16,17 @@ import Mycampaings from '../Pages/Mycampaings';
 import Update from '../Pages/Update';
 import Privateroute from './privateRoute';
 import Reset from '../Component/Reset';
+import Error from '../Pages/Error';
 
 const router = createBrowserRouter([
     {
       path: "/",
       element: <Mainlayout></Mainlayout>,
+      errorElement:<Error></Error>,
       children:[
         { path: "/",
           element:<Home></Home>,
+         
           children:[
           
             
