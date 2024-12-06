@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import Swal from 'sweetalert2';
+import { toast, ToastContainer } from 'react-toastify';
 import { AuthContex } from '../Authprovider/Authprovider';
 import { Typewriter } from 'react-simple-typewriter';
 
@@ -16,11 +16,7 @@ const MyCampaigns = () => {
           throw new Error('Failed to fetch donations');
         }
         const data = await response.json();
-
-        // Filter data to show only donations added by the current user
-        const userDonations = data.filter((donation) => donation.userEmail === user.email);
-
-        setDonations(userDonations);
+        setDonations(data);
 
         // Simulate a delay of 2 seconds to show the spinner
         setTimeout(() => {
@@ -28,10 +24,9 @@ const MyCampaigns = () => {
         }, 2000);
       } catch (error) {
         console.error('Error fetching donations:', error);
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: 'Failed to load your donations.',
+        toast.error('Failed to load your donations.', {
+          position: 'top-right',
+          autoClose: 3000,
         });
 
         // Hide the spinner even if there's an error
@@ -40,45 +35,12 @@ const MyCampaigns = () => {
     };
 
     fetchUserDonations();
-  }, [user.email]);
-
-  // Handle delete campaign
-  const handleDelete = async (id) => {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: 'You won’t be able to revert this!',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#3085d6',
-      confirmButtonText: 'Yes, delete it!',
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        try {
-          const response = await fetch(`https://user-server-side-management-system.vercel.app/donation/${id}`, {
-            method: 'DELETE',
-          });
-
-          if (response.ok) {
-            setDonations(donations.filter((donation) => donation._id !== id));
-            Swal.fire('Deleted!', 'Your campaign has been deleted.', 'success');
-          } else {
-            throw new Error('Failed to delete the campaign.');
-          }
-        } catch (error) {
-          console.error('Error deleting campaign:', error);
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'Failed to delete the campaign.',
-          });
-        }
-      }
-    });
-  };
+  }, []);
 
   return (
     <div className="max-w-6xl mx-auto py-10 px-6">
+      <ToastContainer />
+
       {loading ? (
         // Show spinner for 2 seconds after fetching the data
         <div className="flex justify-center items-center h-screen">
@@ -110,11 +72,11 @@ const MyCampaigns = () => {
                 >
                   <img
                     src={donation.image}
-                    alt={donation.title}
+                    alt={donation.campaignTitle}
                     className="w-full h-48 object-cover"
                   />
                   <div className="p-4">
-                    <h3 className="text-xl text-orange-500 font-bold mb-2">{donation.campaignTitle}</h3>
+                    <h3 className="text-xl font-bold text-orange-500 mb-2">{donation.campaignTitle}</h3>
                     <p className="line-clamp-3">{donation.description}</p>
                     <p className="mt-2">
                       <strong>Minimum Donation:</strong> ${donation.minimumDonation}
@@ -125,12 +87,6 @@ const MyCampaigns = () => {
                     <p>
                       <strong>Donated On:</strong> {new Date(donation.donationOn).toLocaleDateString()}
                     </p>
-                    <button
-                      onClick={() => handleDelete(donation._id)}
-                      className="mt-4 bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
-                    >
-                      Delete
-                    </button>
                   </div>
                 </div>
               ))}

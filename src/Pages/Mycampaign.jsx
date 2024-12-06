@@ -26,7 +26,7 @@ const Mycampaign = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/campaigns/${campaignId}`, {
+        fetch(`https://user-server-side-management-system.vercel.app/campaigns/${campaignId}`, {
           method: "DELETE",
         })
           .then((res) => res.json())

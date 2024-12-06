@@ -126,7 +126,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar overflow-hidden w-full mx-auto sticky top-0 left-0 right-0 z-50 bg-base-100">
+    <div className="navbar w-full mx-auto sticky top-0 left-0 right-0 z-50 bg-base-100">
       <div className="navbar-start">
         <div className="dropdown lg:hidden">
           <button
@@ -153,7 +153,7 @@ const Navbar = () => {
           {isMenuOpen && (
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+              className="menu menu-sm z-50 dropdown-content bg-base-100 rounded-box mt-3 w-52 p-2 shadow"
             >
               {Navlink}
             </ul>
