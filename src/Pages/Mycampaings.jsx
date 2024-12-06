@@ -78,6 +78,8 @@ const MyCampaigns = () => {
                   <div className="p-4">
                     <h3 className="text-xl font-bold text-orange-500 mb-2">{donation.campaignTitle}</h3>
                     <p className="line-clamp-3">{donation.description}</p>
+                    <p className="line-clamp-3 font-bold">Email: {donation.
+userEmail}</p>
                     <p className="mt-2">
                       <strong>Minimum Donation:</strong> ${donation.minimumDonation}
                     </p>

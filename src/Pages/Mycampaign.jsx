@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 import { AuthContex } from "../Authprovider/Authprovider";
 
 const Mycampaign = () => {
-  const { user } = useContext(AuthContex);
+  const { user } = useContext(AuthContex); // Get user data from context
   const campaignsData = useLoaderData(); // Data loaded from the server
   const [campaigns, setCampaigns] = useState(campaignsData);
 
@@ -61,6 +61,8 @@ const Mycampaign = () => {
         ({userCampaigns.length})
       </h1>
 
+     
+
       <table className="min-w-full table-auto">
         <thead>
           <tr className="bg-gray-100">
@@ -68,7 +70,6 @@ const Mycampaign = () => {
             <th className="px-4 py-2 border">Title</th>
             <th className="px-4 py-2 border">Description</th>
             <th className="px-4 py-2 border">Type</th>
-            <th className="px-4 py-2 border">User</th>
             <th className="px-4 py-2 border">Actions</th>
           </tr>
         </thead>
@@ -85,7 +86,7 @@ const Mycampaign = () => {
               <td className="px-4 py-2">{campaign.title}</td>
               <td className="px-4 py-2">{campaign.description}</td>
               <td className="px-4 py-2">{campaign.type}</td>
-              <td className="px-4 py-2">{campaign.email}</td>
+             
               <td className="px-4 py-2 flex gap-2">
                 {/* Only show Edit/Delete buttons for the current user's campaigns */}
                 <Link
