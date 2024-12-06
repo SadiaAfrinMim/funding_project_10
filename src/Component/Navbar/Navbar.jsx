@@ -127,37 +127,50 @@ const Navbar = () => {
             <Toggle  isChecked={isDark} handleChange={() => setIsDark(!isDark)} />
            
           </div>
-        {!user ? (
-          <>
-            <button className="btn btn-primary rounded-none mr-2" onClick={handleLogin}>
-              Log in
-            </button>
-            <button className="btn bg-orange-500 rounded-none" onClick={handleRegister}>
-              Register
-            </button>
-          </>
-        ) : (
-          <div className="dropdown dropdown-end">
-            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-              <div className="w-10 rounded-full">
-                <img src={user.photoURL} alt="User Avatar" />
-              </div>
-            </label>
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 p-2 shadow"
-            >
-              <li className="text-center">
-                <span>{user.displayName}</span>
-              </li>
-              <li>
-                <button className="btn btn-error btn-block" onClick={logOut}>
-                  Log out
-                </button>
-              </li>
-            </ul>
-          </div>
-        )}
+          {!user ? (
+  <>
+    {/* Login Button */}
+    <button 
+      className="btn btn-primary rounded-none mr-2" 
+      onClick={handleLogin}
+    >
+      Log in
+    </button>
+
+    {/* Register Button */}
+    <button 
+      className="btn bg-orange-500 rounded-none" 
+      onClick={handleRegister}
+    >
+      Register
+    </button>
+  </>
+) : (
+  <div className="flex items-center space-x-2">
+    {/* User Avatar */}
+    <div className="relative group">
+      <img 
+        src={user.photoURL} 
+        alt="User Avatar" 
+        className="w-10 h-10 rounded-full"
+      />
+
+      {/* Display Name on Hover */}
+      <div className="absolute w-full p-2 text-center bg-black text-white rounded-lg mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        {user.displayName}
+      </div>
+    </div>
+
+    {/* Log out Button */}
+    <button 
+      className="btn btn-error rounded-none"
+      onClick={logOut}
+    >
+      Log out
+    </button>
+  </div>
+)}
+
       </div>
     </div>
   );

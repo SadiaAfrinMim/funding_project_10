@@ -14,6 +14,8 @@ import CampaignDetails from '../Pages/CampaignDetails';
 import Mycampaign from '../Pages/Mycampaign';
 import Mycampaings from '../Pages/Mycampaings';
 import Update from '../Pages/Update';
+import Privateroute from './privateRoute';
+import Reset from '../Component/Reset';
 
 const router = createBrowserRouter([
     {
@@ -39,16 +41,16 @@ const router = createBrowserRouter([
         },
         {
           path: "/add-campaign",
-          element:<AddCampaign></AddCampaign>,
+          element:<Privateroute><AddCampaign></AddCampaign></Privateroute>,
         },
         {
           path: "/my-campaigns",
-          element:<Mycampaign></Mycampaign>,
+          element:<Privateroute><Mycampaign></Mycampaign></Privateroute>,
           loader:()=>fetch('http://localhost:5000/campaigns')
         },
         {
           path: '/campaigns/:id',
-          element: <CampaignDetails />,
+          element: <Privateroute><CampaignDetails></CampaignDetails></Privateroute>,
           loader: ({ params }) => fetch(`http://localhost:5000/campaigns/${params.id}`)
 
           
@@ -62,7 +64,7 @@ const router = createBrowserRouter([
         },
         {
           path: "/my-donations",
-          element:<Mycampaings></Mycampaings>
+          element:<Privateroute><Mycampaings></Mycampaings></Privateroute>
         },
         {
           path:"/donation/:id",
@@ -79,6 +81,10 @@ const router = createBrowserRouter([
         path: "/login",
         element:<Login></Login>
     },
+    {
+      path:"/reset",
+      element:<Reset></Reset>
+    }
     
     ]
     },

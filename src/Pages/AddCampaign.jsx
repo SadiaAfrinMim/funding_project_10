@@ -41,8 +41,8 @@ const AddCampaign = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-10 px-4">
-      <div className="w-full max-w-3xl bg-white rounded-lg shadow-lg p-8">
+    <div className="min-h-screen  flex items-center justify-center py-10 px-4">
+      <div className="w-full max-w-3xl border-2 border-gray-300  shadow-lg p-8">
         <h2 className="text-3xl font-bold text-center text-[#FF851B] mb-8">
         <Typewriter
             words={['Add New Campaign']}
@@ -65,7 +65,7 @@ const AddCampaign = () => {
               type="url"
               name="image"
               placeholder="Enter image URL"
-              className="input input-bordered w-full"
+              className="input rounded-none input-bordered w-full"
               required
             />
           </div>
@@ -79,7 +79,7 @@ const AddCampaign = () => {
               type="text"
               name="title"
               placeholder="Enter campaign title"
-              className="input input-bordered w-full"
+              className="input rounded-none input-bordered w-full"
               required
             />
           </div>
@@ -89,7 +89,7 @@ const AddCampaign = () => {
             <label className="label">
               <span className="label-text font-bold">Campaign Type</span>
             </label>
-            <select name="type" className="select select-bordered w-full" required>
+            <select name="type" className="select rounded-none select-bordered w-full" required>
               <option value="">Select Type</option>
               <option value="Environment">Environment</option>
               <option value="Education">Education</option>
@@ -107,7 +107,7 @@ const AddCampaign = () => {
             <textarea
               name="description"
               placeholder="Enter campaign description"
-              className="textarea textarea-bordered w-full"
+              className="textarea rounded-none textarea-bordered w-full"
               required
             ></textarea>
           </div>
@@ -121,7 +121,7 @@ const AddCampaign = () => {
               type="number"
               name="minimumDonation"
               placeholder="Enter minimum donation amount"
-              className="input input-bordered w-full"
+              className="input rounded-none input-bordered w-full"
               required
             />
           </div>
@@ -134,7 +134,7 @@ const AddCampaign = () => {
             <input
               type="date"
               name="deadline"
-              className="input input-bordered w-full"
+              className="input rounded-none input-bordered w-full"
               required
             />
           </div>
@@ -148,7 +148,7 @@ const AddCampaign = () => {
               type="email"
               defaultValue={user.email} // Use email from context
               name="email"
-              className="input input-bordered w-full bg-gray-100"
+              className="input rounded-none input-bordered w-full "
               readOnly
             />
           </div>
@@ -162,7 +162,7 @@ const AddCampaign = () => {
               type="text"
               defaultValue={user.displayName} // Use displayName from context
               name="name"
-              className="input input-bordered w-full bg-gray-100"
+              className="input rounded-none input-bordered w-full "
               readOnly
             />
           </div>
@@ -171,7 +171,7 @@ const AddCampaign = () => {
           <div className="form-control mt-6">
             <button
               type="submit"
-              className="btn btn-primary w-full bg-gradient-to-r from-[#FF851B] to-[#FFDC00] text-white border-none hover:from-[#FFDC00] hover:to-[#FF851B]"
+              className="btn rounded-none btn-primary w-full bg-gradient-to-r from-[#FF851B] to-[#FFDC00] text-white border-none hover:from-[#FFDC00] hover:to-[#FF851B]"
             >
               Add Campaign
             </button>
