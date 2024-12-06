@@ -1,29 +1,26 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 import { AuthContex } from '../Authprovider/Authprovider';
 import { Typewriter } from 'react-simple-typewriter';
 
 const AllCampaigns = () => {
   const { user } = useContext(AuthContex);
-  const [loading, setLoading] = useState(true);
-  const campaigns = useLoaderData();
+  const campaignsData = useLoaderData();
+  const [campaigns, setCampaigns] = useState(campaignsData);
+  const [sortOrder, setSortOrder] = useState('asc'); // State to track sorting order
 
-  useEffect(() => {
-    // Simulating a 2-second delay for spinner
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 2000); // 2-second delay
-
-    return () => clearTimeout(timer); // Cleanup timeout on component unmount
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <div className="animate-spin border-4 border-t-4 border-orange-500 rounded-full w-16 h-16 mb-6"></div>
-      </div>
-    );
-  }
+  // Handle sorting
+  const handleSort = () => {
+    const sortedCampaigns = [...campaigns].sort((a, b) => {
+      if (sortOrder === 'asc') {
+        return a.minimumDonation - b.minimumDonation;
+      } else {
+        return b.minimumDonation - a.minimumDonation;
+      }
+    });
+    setCampaigns(sortedCampaigns);
+    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc'); // Toggle sort order
+  };
 
   return (
     <div className="container mx-auto mt-10 px-4">
@@ -32,13 +29,22 @@ const AllCampaigns = () => {
           words={['All Campaigns']}
           loop={5}
           cursor
-          cursorStyle='_'
+          cursorStyle="_"
           typeSpeed={70}
           deleteSpeed={50}
           delaySpeed={1000}
         />
         ({campaigns.length})
       </h1>
+
+      <div className="flex justify-end mb-4">
+        <button
+          onClick={handleSort}
+          className="btn bg-orange-400 hover:bg-orange-500 text-white px-4 py-2 rounded"
+        >
+          Sort by Amount ({sortOrder === 'asc' ? 'Ascending' : 'Descending'})
+        </button>
+      </div>
 
       <div className="overflow-x-auto">
         <table className="min-w-full table-auto border-collapse border">

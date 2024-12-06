@@ -5,11 +5,6 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 
 const RunningFund = () => {
-
-
-  useEffect(() => {
-    AOS.init({ duration: 2000 });
-  }, [])
   const [campaigns, setCampaigns] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -21,17 +16,26 @@ const RunningFund = () => {
     const fetchCampaigns = async () => {
       try {
         setLoading(true);
-        const response = await fetch("https://user-server-side-management-system.vercel.app/campaigns?limit=6"); // Fetch only 6 campaigns
+        const response = await fetch(
+          "https://user-server-side-management-system.vercel.app/campaigns?limit=6"
+        );
         if (!response.ok) {
           throw new Error("Failed to fetch campaigns");
         }
         const data = await response.json();
-        setCampaigns(data);
 
-        // Set timeout to delay hiding the spinner for 2 seconds
+        // Filter out inactive campaigns based on deadline
+        const currentDate = new Date();
+        const activeCampaigns = data.filter(
+          (campaign) => new Date(campaign.deadline) > currentDate
+        );
+
+        setCampaigns(activeCampaigns);
+
+        // Delay hiding the spinner
         setTimeout(() => {
           setLoading(false);
-        }, 2000); // Delay of 2 seconds
+        }, 2000);
       } catch (error) {
         console.error("Error fetching campaigns:", error);
         setLoading(false);
@@ -44,7 +48,7 @@ const RunningFund = () => {
   const currentDate = new Date();
 
   return (
-    <div className=" overflow-hidden  mx-auto py-10 px-4">
+    <div className="overflow-hidden mx-auto py-10 px-4">
       <h2 className="text-4xl font-bold text-center text-[#FF851B] mb-8">
         <Typewriter
           words={["Running Campaigns"]}
@@ -57,7 +61,7 @@ const RunningFund = () => {
         />
       </h2>
 
-      {/* Animated spinner */}
+      {/* Loading spinner */}
       {loading && (
         <div className="flex justify-center items-center">
           <div className="animate-spin border-4 border-t-4 border-orange-500 rounded-full w-16 h-16 mb-6"></div>
@@ -67,17 +71,25 @@ const RunningFund = () => {
       {loading ? (
         <p className="text-center text-gray-600">Loading campaigns...</p>
       ) : campaigns.length === 0 ? (
-        <p className="text-center text-gray-600">No active campaigns at the moment.</p>
+        <p className="text-center text-gray-600">
+          No active campaigns at the moment.
+        </p>
       ) : (
-        <div data-aos="zoom-in" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div
+          data-aos="zoom-in"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
           {campaigns.map((campaign) => (
             <div
               key={campaign._id}
               className="w-full shadow-xl border border-[#FF851B] transform transition duration-500 hover:scale-105 relative"
             >
               <div
-                className={`absolute top-2 right-2 px-3 py-1 text-white font-bold text-sm rounded-full ${new Date(campaign.deadline) > currentDate ? "bg-green-500" : "bg-gray-500"
-                  }`}
+                className={`absolute top-2 right-2 px-3 py-1 text-white font-bold text-sm rounded-full ${
+                  new Date(campaign.deadline) > currentDate
+                    ? "bg-green-500"
+                    : "bg-gray-500"
+                }`}
               >
                 Active
               </div>
@@ -95,7 +107,8 @@ const RunningFund = () => {
                 <p className="mt-2">{`${campaign.description.slice(0, 80)}...`}</p>
                 <div className="flex justify-between mt-4 text-sm">
                   <span>
-                    <strong>Minimum Donation:</strong> ${campaign.minimumDonation}
+                    <strong>Minimum Donation:</strong> $
+                    {campaign.minimumDonation}
                   </span>
                   <span>
                     <strong>Deadline:</strong>{" "}

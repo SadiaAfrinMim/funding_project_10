@@ -29,53 +29,50 @@ const Navbar = () => {
           to="/campaigns"
           className={({ isActive }) =>
             isActive
-              ? "bg-gradient-to-r  rounded-none font-bold text-white px-6 mx-4 py-2 from-[#FF851B] to-[#FFDC00]"
+              ? "bg-gradient-to-r rounded-none font-bold text-white px-6 mx-4 py-2 from-[#FF851B] to-[#FFDC00]"
               : "border-b-4 shadow-lg bg-orange-100 mx-4 px-6 py-2 border-[#FF851B] rounded-none"
           }
         >
           All Campaigns
         </NavLink>
       </li>
-    
-          <li>
-            <NavLink
-              to="/add-campaign"
-              className={({ isActive }) =>
-                isActive
-                  ? "bg-gradient-to-r rounded-none font-bold text-white px-6 mx-4 py-2 from-[#FF851B] to-[#FFDC00]"
-                  : "border-b-4 shadow-lg bg-orange-100 mx-4 px-6 py-2 border-[#FF851B] rounded-none"
-              }
-            >
-              Add New Campaign
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/my-campaigns"
-              className={({ isActive }) =>
-                isActive
-                  ? "bg-gradient-to-r rounded-none font-bold text-white px-6 mx-4 py-2 from-[#FF851B] to-[#FFDC00]"
-                  : "border-b-4 shadow-lg bg-orange-100 mx-4 px-6 py-2 border-[#FF851B] rounded-none"
-              }
-            >
-              My Campaigns
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/my-donations"
-              className={({ isActive }) =>
-                isActive
-                  ? "bg-gradient-to-r rounded-none font-bold text-white px-6 mx-4 py-2 from-[#FF851B] to-[#FFDC00]"
-                  : "border-b-4 shadow-lg bg-orange-100 mx-4 px-6 py-2 border-[#FF851B] rounded-none"
-              }
-            >
-              My Donations
-            </NavLink>
-          </li>
-        </>
-      
-    
+      <li>
+        <NavLink
+          to="/add-campaign"
+          className={({ isActive }) =>
+            isActive
+              ? "bg-gradient-to-r rounded-none font-bold text-white px-6 mx-4 py-2 from-[#FF851B] to-[#FFDC00]"
+              : "border-b-4 shadow-lg bg-orange-100 mx-4 px-6 py-2 border-[#FF851B] rounded-none"
+          }
+        >
+          Add New Campaign
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/my-campaigns"
+          className={({ isActive }) =>
+            isActive
+              ? "bg-gradient-to-r rounded-none font-bold text-white px-6 mx-4 py-2 from-[#FF851B] to-[#FFDC00]"
+              : "border-b-4 shadow-lg bg-orange-100 mx-4 px-6 py-2 border-[#FF851B] rounded-none"
+          }
+        >
+          My Campaigns
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/my-donations"
+          className={({ isActive }) =>
+            isActive
+              ? "bg-gradient-to-r rounded-none font-bold text-white px-6 mx-4 py-2 from-[#FF851B] to-[#FFDC00]"
+              : "border-b-4 shadow-lg bg-orange-100 mx-4 px-6 py-2 border-[#FF851B] rounded-none"
+          }
+        >
+          My Donations
+        </NavLink>
+      </li>
+    </>
   );
 
   const handleLogin = () => {
@@ -159,29 +156,30 @@ const Navbar = () => {
           )}
         </div>
         <Link to="/" className="font-bold whitespace-nowrap text-2xl">
-          SadiaFund 🤝
+          SadiaFund
         </Link>
       </div>
 
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{Navlink}</ul>
       </div>
-
-      <div className="navbar-end space-x-2">
-        <div>
+      <div className="mb-2 sm:mb-0">
           <Toggle isChecked={isDark} handleChange={() => setIsDark(!isDark)} />
         </div>
+
+      <div className="navbar-end gap-2 justify-end flex items-center sm:flex-row">
+       
         {!user ? (
           <>
             <button
-              className="py-2 px-3 bg-blue-600 rounded-none "
+              className="py-2  bg-blue-600 whitespace-nowrap rounded-none  sm:mb-0"
               onClick={handleLogin}
             >
               Log in
             </button>
 
             <button
-              className="py-2 px-2 bg-orange-500  rounded-none"
+              className="py-2 bg-orange-500 rounded-none"
               onClick={handleRegister}
             >
               Register
