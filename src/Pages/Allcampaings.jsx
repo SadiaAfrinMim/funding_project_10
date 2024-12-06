@@ -1,27 +1,43 @@
-import React, { useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 import { AuthContex } from '../Authprovider/Authprovider';
 import { Typewriter } from 'react-simple-typewriter';
 
 const AllCampaigns = () => {
   const { user } = useContext(AuthContex);
+  const [loading, setLoading] = useState(true);
   const campaigns = useLoaderData();
+
+  useEffect(() => {
+    // Simulating a 2-second delay for spinner
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000); // 2-second delay
+
+    return () => clearTimeout(timer); // Cleanup timeout on component unmount
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin border-4 border-t-4 border-orange-500 rounded-full w-16 h-16 mb-6"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto mt-10 px-4">
       <h1 className="text-3xl font-bold mb-6 text-orange-400 text-center">
-      <Typewriter
-            words={['All Campaigns']}
-            loop={5}
-            cursor
-            cursorStyle='_'
-            typeSpeed={70}
-            deleteSpeed={50}
-            delaySpeed={1000}
-           
-            
-          />
-           ({campaigns.length})
+        <Typewriter
+          words={['All Campaigns']}
+          loop={5}
+          cursor
+          cursorStyle='_'
+          typeSpeed={70}
+          deleteSpeed={50}
+          delaySpeed={1000}
+        />
+        ({campaigns.length})
       </h1>
 
       <div className="overflow-x-auto">
@@ -43,7 +59,7 @@ const AllCampaigns = () => {
             {campaigns.map((campaign) => (
               <tr key={campaign._id} className="border-b hover:bg-gray-50">
                 {/* Image */}
-                <td className=" py-2">
+                <td className="py-2">
                   <img
                     src={campaign.image}
                     alt={campaign.title}
@@ -76,7 +92,7 @@ const AllCampaigns = () => {
                 <td className="px-4 py-2 text-center">
                   <Link
                     to={`/campaigns/${campaign._id}`}
-                    className="btn  btn-sm bg-yellow-400 hover:bg-yellow-500 whitespace-nowrap text-white"
+                    className="btn btn-sm bg-yellow-400 hover:bg-yellow-500 whitespace-nowrap text-white"
                   >
                     See More
                   </Link>

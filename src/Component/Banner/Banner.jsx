@@ -6,7 +6,7 @@ const Banner = () => {
       {/* Slide 1 */}
       <div id="slide1" className="carousel-item relative w-full">
         <img
-          src="https://i.ibb.co/4WHWYbb/premium-photo-1706061121923-e2aef3d28939.jpg"
+          src="https://i.ibb.co.com/XFHKY0r/businessman-woman-workplace-paperwork-dollar.jpg"
           className="w-full object-cover h-[500px]"
           alt="Slide 1"
         />
@@ -21,7 +21,7 @@ const Banner = () => {
             Explore Now
           </button>
         </div>
-        <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+        <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between md:flex hidden">
           <a href="#slide4" className="btn btn-circle">❮</a>
           <a href="#slide2" className="btn btn-circle">❯</a>
         </div>
@@ -45,7 +45,7 @@ const Banner = () => {
             Get Started
           </button>
         </div>
-        <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+        <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between md:flex hidden">
           <a href="#slide1" className="btn btn-circle">❮</a>
           <a href="#slide3" className="btn btn-circle">❯</a>
         </div>
@@ -54,7 +54,7 @@ const Banner = () => {
       {/* Slide 3 */}
       <div id="slide3" className="carousel-item relative w-full">
         <img
-          src="https://img.daisyui.com/images/stock/photo-1414694762283-acccc27bca85.webp"
+          src="https://i.ibb.co.com/XFHKY0r/businessman-woman-workplace-paperwork-dollar.jpg"
           className="w-full object-cover h-[500px]"
           alt="Slide 3"
         />
@@ -69,7 +69,7 @@ const Banner = () => {
             Donate Now
           </button>
         </div>
-        <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+        <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between md:flex hidden">
           <a href="#slide2" className="btn btn-circle">❮</a>
           <a href="#slide4" className="btn btn-circle">❯</a>
         </div>
@@ -78,7 +78,7 @@ const Banner = () => {
       {/* Slide 4 */}
       <div id="slide4" className="carousel-item relative w-full">
         <img
-          src="https://img.daisyui.com/images/stock/photo-1665553365602-b2fb8e5d1707.webp"
+          src="https://i.ibb.co.com/t2Jdjbg/high-angle-women-with-items.jpg"
           className="w-full object-cover h-[500px]"
           alt="Slide 4"
         />
@@ -93,7 +93,7 @@ const Banner = () => {
             Learn More
           </button>
         </div>
-        <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+        <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between md:flex hidden">
           <a href="#slide3" className="btn btn-circle">❮</a>
           <a href="#slide1" className="btn btn-circle">❯</a>
         </div>
