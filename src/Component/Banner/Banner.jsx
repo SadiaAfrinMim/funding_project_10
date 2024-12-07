@@ -6,19 +6,19 @@ const Banner = () => {
       {/* Slide 1 */}
       <div id="slide1" className="carousel-item relative w-full">
         <img
-          src="https://i.ibb.co.com/XFHKY0r/businessman-woman-workplace-paperwork-dollar.jpg"
+          src="https://i.ibb.co/XFHKY0r/businessman-woman-workplace-paperwork-dollar.jpg"
           className="w-full object-cover h-[500px]"
           alt="Slide 1"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black opacity-125"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black opacity-75"></div>
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white px-4 space-y-4">
-          <h2 className="text-4xl font-bold">Welcome to Our Platform</h2>
+          <h2 className="text-4xl font-bold">Empower Ideas with Your Support</h2>
           <p className="text-lg max-w-xl">
-            Explore unique opportunities to support creative minds and inspiring campaigns. Whether you are looking to
-            contribute, collaborate, or simply connect, we provide the perfect space to make meaningful differences.
+            Discover campaigns that ignite change and uplift communities. Your contributions turn aspirations into
+            impactful realities. Be part of the movement!
           </p>
-          <button className="btn btn-outline border-white text-white hover:bg-white hover:text-black rounded-lg">
-            Explore Now
+          <button className="btn btn-outline border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white rounded-none">
+            Explore Campaigns
           </button>
         </div>
         <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between md:flex hidden">
@@ -36,12 +36,12 @@ const Banner = () => {
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black opacity-75"></div>
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white px-4 space-y-4">
-          <h2 className="text-4xl font-bold">Support Brilliant Ideas</h2>
+          <h2 className="text-4xl font-bold">Join Hands for a Brighter Future</h2>
           <p className="text-lg max-w-xl">
-            Join hands with visionaries and innovators to bring groundbreaking ideas to life. Together, we can inspire
-            change, one step at a time, by investing in projects that transform lives and communities.
+            Empower creators and innovators. Together, we can fund ideas that tackle challenges, foster creativity, and
+            bring meaningful change.
           </p>
-          <button className="btn btn-outline border-white text-white hover:bg-white hover:text-black rounded-lg">
+          <button className="btn btn-outline border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white rounded-none">
             Get Started
           </button>
         </div>
@@ -54,18 +54,18 @@ const Banner = () => {
       {/* Slide 3 */}
       <div id="slide3" className="carousel-item relative w-full">
         <img
-          src="https://i.ibb.co.com/XFHKY0r/businessman-woman-workplace-paperwork-dollar.jpg"
+          src="https://i.ibb.co/XFHKY0r/businessman-woman-workplace-paperwork-dollar.jpg"
           className="w-full object-cover h-[500px]"
           alt="Slide 3"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black opacity-175"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black opacity-75"></div>
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white px-4 space-y-4">
-          <h2 className="text-4xl font-bold">Make a Difference</h2>
+          <h2 className="text-4xl font-bold">Make Your Contribution Count</h2>
           <p className="text-lg max-w-xl">
-            Empower communities by contributing to campaigns that uplift and inspire. Together, we can create
-            opportunities that not only solve challenges but also leave a lasting legacy of change and hope.
+            Every small step creates a big impact. Donate to campaigns that resonate with you and help shape the world
+            for the better.
           </p>
-          <button className="btn btn-outline border-white text-white hover:bg-white hover:text-black rounded-lg">
+          <button className="btn btn-outline border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white rounded-none">
             Donate Now
           </button>
         </div>
@@ -78,18 +78,18 @@ const Banner = () => {
       {/* Slide 4 */}
       <div id="slide4" className="carousel-item relative w-full">
         <img
-          src="https://i.ibb.co.com/t2Jdjbg/high-angle-women-with-items.jpg"
+          src="https://i.ibb.co/t2Jdjbg/high-angle-women-with-items.jpg"
           className="w-full object-cover h-[500px]"
           alt="Slide 4"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black opacity-75"></div>
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white px-4 space-y-4">
-          <h2 className="text-4xl font-bold">Inspire Change</h2>
+          <h2 className="text-4xl font-bold">Inspire Transformations</h2>
           <p className="text-lg max-w-xl">
-            Unleash the power of collaboration and creativity to address global challenges. Inspire meaningful
-            transformations by supporting projects that leave a positive and sustainable impact on our world.
+            Unite with change-makers to address challenges and create sustainable solutions. Let’s inspire and leave a
+            lasting impact.
           </p>
-          <button className="btn btn-outline border-white text-white hover:bg-white hover:text-black rounded-lg">
+          <button className="btn btn-outline border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white rounded-none">
             Learn More
           </button>
         </div>

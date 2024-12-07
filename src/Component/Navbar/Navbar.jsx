@@ -163,11 +163,12 @@ const Navbar = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{Navlink}</ul>
       </div>
-      <div className="mb-2 sm:mb-0">
-          <Toggle isChecked={isDark} handleChange={() => setIsDark(!isDark)} />
-        </div>
+      
 
       <div className="navbar-end gap-2 justify-end flex items-center sm:flex-row">
+      <div className=" sm:mb-0">
+          <Toggle isChecked={isDark} handleChange={() => setIsDark(!isDark)} />
+        </div>
        
         {!user ? (
           <>
@@ -179,7 +180,7 @@ const Navbar = () => {
             </button>
 
             <button
-              className="py-2 bg-orange-500 rounded-none"
+              className="py-2 hidden sm:block md:block bg-orange-500 rounded-none"
               onClick={handleRegister}
             >
               Register
