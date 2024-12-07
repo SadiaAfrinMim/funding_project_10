@@ -2,11 +2,10 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 import { AuthContex } from '../Authprovider/Authprovider';
 import { Typewriter } from 'react-simple-typewriter';
+import { Helmet } from 'react-helmet-async';
 
 const AllCampaigns = () => {
-  // useEffect(()=>{
-  //   document.title('Allcampaign||SadiaFund')
-  // },[])
+  
   const { user } = useContext(AuthContex);
   const campaignsData = useLoaderData();
   const [campaigns, setCampaigns] = useState(campaignsData);
@@ -27,6 +26,9 @@ const AllCampaigns = () => {
 
   return (
     <div className="container mx-auto mt-10 px-4">
+      <Helmet>
+    <title>AllCampaigns || SadiaFund</title>
+  </Helmet>
       <h1 className="text-3xl font-bold mb-6 text-orange-400 text-center">
         <Typewriter
           words={['All Campaigns']}

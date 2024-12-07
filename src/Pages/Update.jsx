@@ -1,11 +1,10 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useLoaderData } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 const Update = () => {
-  useEffect(()=>{
-    document.title('Update||SadiaFund')
-  },[])
+  
   const campaign = useLoaderData();
   const { _id, title, image, description, type, minimumDonation, deadline } = campaign;
 
@@ -66,6 +65,9 @@ const Update = () => {
 
   return (
     <div className="min-h-screen  flex items-center justify-center py-10 px-4">
+      <Helmet>
+  <title>UpdateDetails || SadiaFund</title>
+</Helmet>
       <div className="w-full max-w-3xl border border-gray-300 shadow-lg p-8">
         <h2 className="text-3xl font-bold text-center text-[#FF851B] mb-8">
           Update Campaign

@@ -12,6 +12,7 @@ import Router from './Router/Router.jsx';
 import Authprovider from './Authprovider/Authprovider.jsx';
 import { ToastContainer } from 'react-toastify';
 import { Typewriter } from 'react-simple-typewriter';
+import { HelmetProvider } from 'react-helmet-async';
 
 
 
@@ -20,11 +21,13 @@ import { Typewriter } from 'react-simple-typewriter';
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Authprovider>
+    <HelmetProvider>
     <RouterProvider router={Router}>
     <Typewriter></Typewriter>
 
 </RouterProvider>
 <ToastContainer />
+    </HelmetProvider>
     </Authprovider>
   </StrictMode>,
 )

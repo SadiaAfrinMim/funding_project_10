@@ -5,8 +5,10 @@ import { Link, useLoaderData } from "react-router-dom";
 import { Typewriter } from "react-simple-typewriter";
 import Swal from "sweetalert2";
 import { AuthContex } from "../Authprovider/Authprovider";
+import { Helmet } from "react-helmet-async";
 
 const Mycampaign = () => {
+  
   
   const { user } = useContext(AuthContex); // Get user data from context
   const campaignsData = useLoaderData(); // Data loaded from the server
@@ -51,6 +53,9 @@ const Mycampaign = () => {
 
   return (
     <div className="container mx-auto mt-10">
+      <Helmet>
+  <title>MyCampaigns || SadiaFund</title>
+</Helmet>
       <h1 className="text-3xl text-orange-500 font-bold mb-6">
         <Typewriter
           words={["My Campaigns"]}

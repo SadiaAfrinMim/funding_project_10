@@ -2,8 +2,10 @@ import React, { useContext, useEffect } from "react";
 import { AuthContex } from "../Authprovider/Authprovider";
 import { Typewriter } from "react-simple-typewriter";
 import Swal from "sweetalert2"; // Import SweetAlert2
+import { Helmet } from "react-helmet-async";
 
 const AddCampaign = () => {
+ 
   
   const { user, displayName } = useContext(AuthContex);
 
@@ -61,6 +63,9 @@ const AddCampaign = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center py-10 px-4">
+       <Helmet>
+    <title>AddCampaign || SadiaFund</title>
+  </Helmet>
       <div className="w-full max-w-3xl border-2 border-gray-300 shadow-lg p-8">
         <h2 className="text-3xl font-bold text-center text-[#FF851B] mb-8">
           <Typewriter

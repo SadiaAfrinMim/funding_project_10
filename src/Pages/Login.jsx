@@ -6,8 +6,10 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import Swal from 'sweetalert2'; // Import SweetAlert
 import { useLottie } from "lottie-react";
 import donationAnimation from '../assets/donation.json';
+import { Helmet } from 'react-helmet-async';
 
 const Login = () => {
+  
   
 
   const options = {
@@ -117,6 +119,9 @@ const Login = () => {
 
   return (
     <div className="max-w-sm mx-auto my-12 p-6  shadow-lg border-2">
+      <Helmet>
+  <title>Login || SadiaFund</title>
+</Helmet>
       <h2 className="text-2xl font-bold text-orange-500 text-center mb-6">Login your account</h2>
       <div className='w-32 mx-auto'>
       {View}

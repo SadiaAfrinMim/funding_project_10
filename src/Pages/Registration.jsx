@@ -3,8 +3,10 @@ import { AuthContex } from '../Authprovider/Authprovider';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import Swal from 'sweetalert2'; // Import SweetAlert
+import { Helmet } from 'react-helmet-async';
 
 const Registration = () => {
+   
   
 
     const { setUser, handleRegistration, updateInformation, setLoading } = useContext(AuthContex);
@@ -69,6 +71,9 @@ const Registration = () => {
 
     return (
         <div className="min-h-screen flex justify-center items-center">
+             <Helmet>
+    <title>Registration || SadiaFund</title>
+  </Helmet>
             <div className="border-2 shadow-lg p-8 w-96">
                 <h2 className="text-3xl font-semibold text-center text-[#FF851B] mb-6">
                     Register Account

@@ -3,9 +3,11 @@ import Navbar from '../Component/Navbar/Navbar';
 import Footer from '../Component/Footer';
 import { Link } from 'react-router-dom';
 import { AuthContex } from '../Authprovider/Authprovider';
+import { Helmet } from 'react-helmet-async';
 
 
 const Error = () => {
+ 
   
     const { isDark,setIsDark } = useContext(AuthContex);
     return (
@@ -17,6 +19,9 @@ const Error = () => {
           <Navbar></Navbar>
      
      <div className="flex m-12 flex-col items-center justify-center w-full space-y-6 px-4">
+     <Helmet>
+  <title>Error || SadiaFund</title>
+</Helmet>
        {/* Container with consistent width */}
        <div className="w-full max-w-2xl">
          {/* Background image */}
