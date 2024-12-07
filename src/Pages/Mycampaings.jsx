@@ -84,13 +84,13 @@ const MyCampaigns = () => {
                     <h3 className="text-xl font-bold text-orange-500 mb-2">{donation.campaignTitle}</h3>
                     <p className="line-clamp-3">{donation.description}</p>
                     <p className="line-clamp-3 font-bold">Email: {donation.userEmail}</p>
-                    <p className="mt-2">
+                    <p className="">
                       <strong>Minimum Donation:</strong> ${donation.minimumDonation}
-                    </p>
-                    <p>
+                    </p> <p className="">
+                      <strong>donationAmount:</strong> <span className="text-orange-500">${donation.donationAmount}</span>
+                    </p><p>
                       <strong>Deadline:</strong> {new Date(donation.deadline).toLocaleDateString()}
-                    </p>
-                    <p>
+                    </p><p>
                       <strong>Donated On:</strong> {new Date(donation.donationOn).toLocaleDateString()}
                     </p>
                   </div>

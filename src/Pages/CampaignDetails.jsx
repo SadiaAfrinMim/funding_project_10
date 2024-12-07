@@ -1,31 +1,84 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useLoaderData, useNavigate } from "react-router-dom"; // Import useNavigate
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 import { AuthContex } from "../Authprovider/Authprovider";
-import Swal from 'sweetalert2'; // Import SweetAlert2
+import { useLottie } from "lottie-react";
+import donationAnimation from '../assets/donation.json';
 
+// Reusable Modal Component
+const Modal = ({ isOpen, title, children, onClose, user, minimumDonation }) => {
+  if (!isOpen) return null;
+
+  const options = {
+    animationData: donationAnimation,  // Use the imported animation data
+    loop: true,                       // Set loop to true for continuous playback
+    autoplay: true,                   // Set autoplay to true to start animation automatically
+  };
+
+  const { View } = useLottie(options); 
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-white p-6 w-full max-w-md shadow-lg border-orange-500 border rounded-none">
+        <h2 className="text-2xl font-bold text-center">{title}</h2>
+        <div className="w-40 mx-auto">{View}</div>
+        
+        <div>{children}</div>
+        
+        <div className="flex justify-end mt-4">
+          <button
+            onClick={onClose}
+            className="px-4 py-2 w-full bg-gray-500 text-white rounded-none"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Main Component
 const CampaignDetails = () => {
-  
-  const { user, displayName } = useContext(AuthContex);
+  const { user } = useContext(AuthContex); // Ensure user data is available
   const data = useLoaderData();
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
 
-  if (!data) {
-    return <p>Loading...</p>; // Handle loading state
-  }
+  if (!data) return <p>Loading...</p>;
 
-  const { id, title, image, description, minimumDonation, deadline } = data;
+  const { id, title, image, description, deadline, minimumDonation: initialMinimumDonation } = data;
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isDonationComplete, setIsDonationComplete] = useState(false);
   const [remainingTime, setRemainingTime] = useState("");
   const [isDeadlineOver, setIsDeadlineOver] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false); // Modal visibility state
-  const [donationAmount, setDonationAmount] = useState(""); // Donation amount input state
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [donationAmount, setDonationAmount] = useState("");
+  const [minimumDonation, setMinimumDonation] = useState(initialMinimumDonation || 0);  // Initialize with the fetched minimumDonation
 
+  // Fetch campaign data (including minimumDonation) if needed
   useEffect(() => {
-    const calculateRemainingTime = () => {
+    const fetchCampaignData = async () => {
+      try {
+        const response = await fetch(`https://your-api-endpoint.com/campaign/${id}`);
+        const result = await response.json();
+        if (result && result.minimumDonation !== undefined) {
+          setMinimumDonation(result.minimumDonation); // Update minimumDonation dynamically from fetched data
+        }
+      } catch (error) {
+        console.error("Error fetching campaign data:", error);
+      }
+    };
+
+    fetchCampaignData();
+  }, [id]); // Run only when the id changes
+
+  // Calculate remaining time
+  useEffect(() => {
+    const updateRemainingTime = () => {
       const now = new Date();
       const end = new Date(deadline);
       const difference = end - now;
@@ -44,35 +97,25 @@ const CampaignDetails = () => {
       setRemainingTime(`${days}d ${hours}h ${minutes}m ${seconds}s remaining`);
     };
 
-    calculateRemainingTime();
-    const timer = setInterval(calculateRemainingTime, 1000);
-
+    updateRemainingTime();
+    const timer = setInterval(updateRemainingTime, 1000);
     return () => clearInterval(timer);
   }, [deadline]);
 
-  const handleDonate = async () => {
-    if (isDeadlineOver) {
+  const handleDonationSubmit = async () => {
+    // Check if the donation is valid
+    if (isDeadlineOver || !donationAmount || donationAmount < minimumDonation) {
       Swal.fire({
-        icon: 'error',
-        title: 'Campaign Closed',
-        text: 'The campaign deadline has passed. Donations are no longer accepted.',
-        confirmButtonColor: '#d33',
-      });
-      return;
-    }
-
-    if (!donationAmount || donationAmount < minimumDonation) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Invalid Donation Amount',
-        text: `Minimum donation is $${minimumDonation}. Please enter a valid amount.`,
-        confirmButtonColor: '#d33',
+        icon: "error",
+        title: "Invalid Donation",
+        text: isDeadlineOver
+          ? "Campaign has ended."
+          : `Minimum donation is $${minimumDonation}.`,
       });
       return;
     }
 
     setIsSubmitting(true);
-    const donationOn = new Date().toISOString();
 
     const donationData = {
       image,
@@ -81,154 +124,121 @@ const CampaignDetails = () => {
       description,
       minimumDonation,
       deadline,
-      userEmail: user.email,
-      username: user.displayName,
-      donationAmount,
-      donationOn,
+      userEmail: user?.email, // Check if user exists
+      username: user?.displayName || "Anonymous", // Provide fallback for username
+      donationAmount, // Using the donationAmount entered by the user
+      donationOn: new Date().toISOString(), // Set donation timestamp
     };
 
     try {
-      // Make API call to store the donation data
-      const response = await fetch("https://user-server-side-management-system.vercel.app/donation", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(donationData),
-      });
+      const response = await fetch(
+        "https://user-server-side-management-system.vercel.app/donation",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(donationData),
+        }
+      );
 
-      if (!response.ok) {
-        throw new Error("Failed to donate");
-      }
+      if (!response.ok) throw new Error("Failed to donate");
 
+      // Display donation success with user information in SweetAlert
       Swal.fire({
-        icon: 'success',
-        title: 'Thank You for Your Donation!',
-        html: `
-          <p><strong>Name:</strong> ${user.displayName || "Anonymous"}</p>
-          <p><strong>Email:</strong> ${user.email || "N/A"}</p>
-          <p>Your contribution of $${donationAmount} means a lot to us!</p>
-        `,
-        confirmButtonColor: '#3085d6',
+        icon: "success",
+        title: "Thank You!",
+        html:  
+          `<p>Your donation of $${donationAmount} is appreciated!</p>
+          <p><strong>Donor:</strong> ${user?.displayName || "Anonymous"}</p>
+          <p><strong>Email:</strong> ${user?.email || "No email provided"}</p>
+          <p><strong>Amount Donated:</strong> $${donationAmount}</p>`,
       });
-
       setIsDonationComplete(true);
-      setIsModalOpen(false); // Close modal after successful donation
+      setIsModalOpen(false);
     } catch (error) {
-      console.error("Error:", error);
-      toast.error("An error occurred while processing your donation.", {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: true,
-      });
+      console.error(error);
+      toast.error("Failed to process your donation. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="max-w-5xl mx-auto py-10 px-6 rounded-none shadow-lg border border-gray-200">
+    <div className="max-w-5xl mx-auto py-10 px-6 border border-orange-500 rounded-none">
+      <Helmet>
+        <title>Campaign Details | SadiaFund</title>
+      </Helmet>
       <ToastContainer />
-      <h2 className="text-4xl font-bold text-center text-[#FF851B] mb-6 uppercase">
+      <h2 className="text-4xl font-bold text-center text-orange-600 mb-6">
         {title}
       </h2>
-
-      <div className="flex flex-col rounded-none md:flex-row items-center mb-8 gap-6">
-        <div className="w-full rounded-none md:w-1/2">
-          <img
-            src={image}
-            alt={`Image for ${title}`}
-            className="w-full h-96 object-cover rounded-none border-2 border-orange-500 shadow-lg"
-          />
-        </div>
-
-        <div className="w-full md:w-1/2 text-center md:text-left">
-          <p className="text-lg font-semibold mb-4">{description}</p>
-          <p className="text-lg font-medium">
+      <div className="flex flex-col md:flex-row items-center gap-6">
+        <img
+          src={image}
+          alt={title}
+          className="w-full md:w-1/2 border border-orange-500 rounded-none object-cover"
+        />
+        <div className="md:w-1/2 text-center md:text-left">
+          <p>{description}</p>
+          <p>
             <strong>Minimum Donation:</strong> ${minimumDonation}
           </p>
-          <p className="text-lg">
+          <p>
             <strong>Deadline:</strong> {new Date(deadline).toLocaleDateString()}
           </p>
-          <p className="text-lg btn btn-outline outline-double outline-orange-500 font-bold text-orange-500 rounded-none mt-4">
+          <p>
             <strong>Time Remaining:</strong> {remainingTime}
           </p>
         </div>
       </div>
-
       <div className="text-center mt-8">
         <button
-          onClick={() => setIsModalOpen(true)} // Open modal on click
-          className={`px-8 py-3 text-lg font-bold text-white rounded-none shadow-md transition duration-300 ${
-            isDeadlineOver || isDonationComplete
-              ? "bg-gray-400 cursor-not-allowed"
-              : "bg-gradient-to-r from-orange-500 rounded-none to-yellow-400 hover:scale-105"
+          onClick={() => setIsModalOpen(true)}
+          disabled={isDeadlineOver || isDonationComplete}
+          className={`px-6 py-3 border border-orange-500 rounded-none ${
+            isDeadlineOver
+              ? "bg-gray-400"
+              : "bg-orange-500 hover:bg-orange-600 text-white"
           }`}
-          disabled={isSubmitting || isDonationComplete || isDeadlineOver}
         >
-          {isSubmitting
-            ? "Processing..."
-            : isDonationComplete
-            ? "Donated"
-            : isDeadlineOver
-            ? "Closed"
-            : "Donate"}
+          {isDonationComplete ? "Thank You!" : "Donate Now"}
         </button>
-
-        {/* Modal */}
-        {isModalOpen && (
-          <div className="fixed inset-0 bg-opacity-70 flex justify-center items-center z-50">
-            <div className="rounded-none p-8 border border-orange-500 bg-gray-100 w-96 max-w-sm shadow-lg transform transition-all duration-300 scale-100 hover:scale-105">
-              <h2 className="text-2xl font-bold text-[#FF851B] mb-4 text-center">
-                Donate to {title}
-              </h2>
-              <p className="text-lg text-black mb-4 text-center">
-                Your support is critical to achieving our goal.
-              </p>
-
-              <div className="mb-6">
-                <label
-                  htmlFor="donationAmount"
-                  className="block text-sm font-medium"
-                >
-                  Enter Donation Amount:
-                </label>
-                <input
-                  type="number"
-                  id="donationAmount"
-                  value={donationAmount}
-                  onChange={(e) => setDonationAmount(e.target.value)}
-                  className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-none focus:ring-[#FF851B] focus:border-[#FF851B]"
-                  placeholder="Enter amount"
-                  min={minimumDonation}
-                />
-              </div>
-
-              <div className="flex justify-between items-center">
-                <button
-                  onClick={() => setIsModalOpen(false)} // Close modal
-                  className="py-2 px-6 rounded-none text-lg"
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={handleDonate}
-                  className="bg-gradient-to-r rounded-none from-[#FF851B] to-[#FFDC00] text-white py-2 px-6  text-lg"
-                >
-                  Donate Now
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
+
+      <Modal
+        isOpen={isModalOpen}
+        title={`Donate to ${title}`}
+        onClose={() => setIsModalOpen(false)}
+        user={user}
+        minimumDonation={minimumDonation}
+      >
+        <div>
+          <label htmlFor="donationAmount" className="block mb-2">
+            Donation Amount:
+          </label>
+          <input
+            type="number"
+            id="donationAmount"
+            value={donationAmount}
+            onChange={(e) => setDonationAmount(e.target.value)}
+            className="w-full px-4 py-2 border border-orange-500 rounded-none"
+            min={minimumDonation}
+            placeholder={`Min $${minimumDonation}`}
+          />
+        </div>
+        <button
+          onClick={handleDonationSubmit}
+          className="mt-4 px-6 py-2 bg-orange-500 text-white border border-orange-500 rounded-none w-full"
+        >
+          {isSubmitting ? "Processing..." : "Confirm Donation"}
+        </button>
+      </Modal>
 
       {isDeadlineOver && (
         <button
-          onClick={() => navigate('/campaigns')} // Navigate to campaigns page
-          className="px-8 py-3 text-lg font-bold rounded-none text-white bg-gray-500  shadow-md transition duration-300 mt-4 hover:scale-105"
+          onClick={() => navigate("/campaigns")}
+          className="mt-4 px-6 py-3 bg-gray-500 text-white border border-orange-500 rounded-none"
         >
-          Close
+          Back to Campaigns
         </button>
       )}
     </div>
