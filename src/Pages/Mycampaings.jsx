@@ -4,9 +4,7 @@ import { AuthContex } from '../Authprovider/Authprovider';
 import { Typewriter } from 'react-simple-typewriter';
 
 const MyCampaigns = () => {
-  useEffect(()=>{
-    document.title('Mydonation||SadiaFund')
-  },[])
+  
   const { user } = useContext(AuthContex); // Get the user data from context
   const [donations, setDonations] = useState([]);
   const [loading, setLoading] = useState(true);

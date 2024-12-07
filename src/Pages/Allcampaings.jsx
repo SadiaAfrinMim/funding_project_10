@@ -4,9 +4,9 @@ import { AuthContex } from '../Authprovider/Authprovider';
 import { Typewriter } from 'react-simple-typewriter';
 
 const AllCampaigns = () => {
-  useEffect(()=>{
-    document.title('Allcampaign||SadiaFund')
-  },[])
+  // useEffect(()=>{
+  //   document.title('Allcampaign||SadiaFund')
+  // },[])
   const { user } = useContext(AuthContex);
   const campaignsData = useLoaderData();
   const [campaigns, setCampaigns] = useState(campaignsData);

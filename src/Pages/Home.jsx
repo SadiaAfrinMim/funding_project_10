@@ -8,9 +8,7 @@ import Ourmission from '../Component/Ourmission/Ourmission';
 
 
 const Home = () => {
-    useEffect(()=>{
-        document.title('Home||SadiaFund')
-      },[])
+    
     return (
         <div className='w-11/12 mx-auto'>
             <Banner></Banner>

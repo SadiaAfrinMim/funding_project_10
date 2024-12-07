@@ -5,9 +5,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import Swal from 'sweetalert2'; // Import SweetAlert
 
 const Registration = () => {
-    useEffect(() => {
-        document.title = 'Registration || SadiaFund';
-    }, []);
+  
 
     const { setUser, handleRegistration, updateInformation, setLoading } = useContext(AuthContex);
     const [error, setError] = useState("");

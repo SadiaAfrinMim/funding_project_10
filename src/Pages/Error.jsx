@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Navbar from '../Component/Navbar/Navbar';
 import Footer from '../Component/Footer';
 import { Link } from 'react-router-dom';
@@ -6,9 +6,7 @@ import { AuthContex } from '../Authprovider/Authprovider';
 
 
 const Error = () => {
-    useEffect(()=>{
-        document.title('Error||SadiaFund')
-      },[])
+  
     const { isDark,setIsDark } = useContext(AuthContex);
     return (
         <div data-theme={isDark ? "dark" : "light"}  isChecked={isDark} handleChange={() => setIsDark(!isDark)}>

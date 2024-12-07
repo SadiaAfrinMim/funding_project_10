@@ -7,9 +7,7 @@ import Swal from "sweetalert2";
 import { AuthContex } from "../Authprovider/Authprovider";
 
 const Mycampaign = () => {
-  useEffect(()=>{
-    document.title('MyCampaign||SadiaFund')
-  },[])
+  
   const { user } = useContext(AuthContex); // Get user data from context
   const campaignsData = useLoaderData(); // Data loaded from the server
   const [campaigns, setCampaigns] = useState(campaignsData);

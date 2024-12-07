@@ -8,9 +8,7 @@ import { useLottie } from "lottie-react";
 import donationAnimation from '../assets/donation.json';
 
 const Login = () => {
-  useEffect(()=>{
-    document.title('Login||SadiaFund')
-  },[])
+  
 
   const options = {
     animationData: donationAnimation,  // Use the imported animation data
