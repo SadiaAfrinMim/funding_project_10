@@ -1,7 +1,6 @@
 ## Project Name:
 SadiaFund: Crowdfunding Application
-## Live Site URL: SadiaFund Live (Add your live site URL here)
-
+## Live Site URL: https://luminous-praline-615362.netlify.app/
 ## Description
 SadiaFund is a modern and user-friendly crowdfunding platform that enables users to create, manage, and support campaigns for personal, creative, or startup initiatives. Designed with simplicity and efficiency in mind, it allows users to explore campaigns, contribute to meaningful causes, and track their activities in a secure environment.
 
