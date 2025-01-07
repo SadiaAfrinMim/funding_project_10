@@ -36,7 +36,9 @@ const Navbar = () => {
           All Campaigns
         </NavLink>
       </li>
-      <li>
+    {
+      user&& <>
+        <li>
         <NavLink
           to="/add-campaign"
           className={({ isActive }) =>
@@ -70,6 +72,22 @@ const Navbar = () => {
           }
         >
           My Donations
+        </NavLink>
+      </li>
+      
+      </>
+    }
+
+<li>
+        <NavLink
+          to="/about"
+          className={({ isActive }) =>
+            isActive
+              ? "bg-gradient-to-r rounded-none font-bold text-white px-6 mx-4 py-2 from-[#FF851B] to-[#FFDC00]"
+              : "border-b-4 shadow-lg bg-orange-100 mx-4 px-6 py-2 border-[#FF851B] rounded-none"
+          }
+        >
+          About Us
         </NavLink>
       </li>
     </>

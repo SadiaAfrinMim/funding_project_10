@@ -12,16 +12,19 @@ const Home = () => {
     
     return (
 
-        <div className='w-11/12 mx-auto'>
+        <div >
             <Helmet>
                 <title>SadiaFund || Home</title>
             </Helmet>
             <Banner></Banner>
+            
            
-            <Outlet></Outlet>
+          <div className='w-11/12 mx-auto'>
+          <Outlet></Outlet>
             <Ourmission></Ourmission>
 
             <Faq></Faq>
+          </div>
         </div>
     );
 };

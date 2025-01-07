@@ -1,5 +1,6 @@
 import Aos from 'aos';
 import React, { useEffect } from 'react';
+import { FaFacebook, FaLink, FaLinkedin, FaPhone } from 'react-icons/fa';
 
 const Footer = () => {
   
@@ -43,7 +44,13 @@ const Footer = () => {
           placeholder="username@site.com"
           className="input input-bordered rounded-none join-item" />
         <button className="btn rounded-none text-white  bg-gradient-to-r from-[#FF851B] to-[#FFDC00] join-item">Subscribe</button>
-      </div>
+       
+      </div >
+      <div className='flex mt-4 justify-center gap-4'>
+          <FaLinkedin className='text-4xl text-orange-500 border border-orange-500 rounded-full p-1'></FaLinkedin>
+          <FaFacebook className='text-4xl text-orange-500 border border-orange-500 rounded-full p-1'></FaFacebook>
+          <FaPhone className='text-4xl text-orange-500 border border-orange-500 rounded-full p-1'></FaPhone>
+        </div>
     </fieldset>
   </form>
   

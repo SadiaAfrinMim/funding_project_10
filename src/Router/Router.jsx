@@ -18,6 +18,7 @@ import Privateroute from './privateRoute';
 import Reset from '../Component/Reset';
 import Error from '../Pages/Error';
 import Lottie from '../Component/Lottie';
+import AboutUs from '../Pages/AboutUs';
 
 const router = createBrowserRouter([
   {
@@ -81,6 +82,10 @@ const router = createBrowserRouter([
         path: "/register",
         element: <Registration ></Registration>
 
+      },
+      {
+        path:'/about',
+        element:<AboutUs></AboutUs>
       },
       {
         path: "/login",
