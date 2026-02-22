@@ -1,91 +1,105 @@
-import React from 'react';
-import { Helmet } from 'react-helmet-async';
-import { useLoaderData } from 'react-router-dom';
-import Swal from 'sweetalert2';
+import React, { useState } from "react";
+import { Helmet } from "react-helmet-async";
+import { useLoaderData } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Update = () => {
-  
   const campaign = useLoaderData();
   const { _id, title, image, description, type, minimumDonation, deadline } = campaign;
 
-  // Handle form submission
-  const handleSubmit = (e) => {
+  const [preview, setPreview] = useState(image || null);
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setSelectedFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => setPreview(reader.result);
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const form = e.target;
-    const image = form.image.value;
-    const title = form.title.value;
-    const type = form.type.value;
-    const description = form.description.value;
-    const minimumDonation = form.minimumDonation.value;
-    const deadline = form.deadline.value;
 
-    const updatedCampaign = {
-      image,
-      title,
-      type,
-      description,
-      minimumDonation,
-      deadline,
-    };
+    const formData = new FormData();
 
-    fetch(`https://user-server-side-management-system.vercel.app/donation/${_id}`, {
-      method: 'PUT',
-      headers: {
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify(updatedCampaign),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log('Campaign updated successfully:', data);
+    // Only append if values changed
+    if (e.target.title.value !== title) formData.append("title", e.target.title.value);
+    if (e.target.description.value !== description)
+      formData.append("description", e.target.description.value);
+    if (e.target.type.value !== type) formData.append("type", e.target.type.value);
+    if (Number(e.target.minimumDonation.value) !== minimumDonation)
+      formData.append("minimumDonation", e.target.minimumDonation.value);
+    if (
+      e.target.deadline.value &&
+      new Date(e.target.deadline.value).toISOString() !== new Date(deadline).toISOString()
+    )
+      formData.append("deadline", e.target.deadline.value);
 
-        // Show success message using SweetAlert2
-        Swal.fire({
-          title: 'Success!',
-          text: 'Campaign has been updated successfully!',
-          icon: 'success',
-          confirmButtonText: 'OK',
-        });
+    // Only append if user selected a new image
+    if (selectedFile) formData.append("image", selectedFile);
 
-        // Alternatively, using toast
-        // toast.success('Campaign updated successfully!');
-      })
-      .catch((error) => {
-        console.error('Error updating campaign:', error);
+    try {
+      const res = await fetch(
+        `https://user-server-side-management-system.vercel.app/donation/${_id}`,
+        {
+          method: "PUT",
+          body: formData,
+        }
+      );
 
-        // Show error message using SweetAlert2
-        Swal.fire({
-          title: 'Error!',
-          text: 'There was an error updating the campaign.',
-          icon: 'error',
-          confirmButtonText: 'OK',
-        });
+      if (!res.ok) throw new Error("Failed to update campaign");
+
+      Swal.fire({
+        title: "Success!",
+        text: "Campaign has been updated successfully!",
+        icon: "success",
+        confirmButtonText: "OK",
       });
+    } catch (error) {
+      console.error("Error updating campaign:", error);
+      Swal.fire({
+        title: "Error!",
+        text: "There was an error updating the campaign.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+    }
   };
 
   return (
-    <div className="min-h-screen  flex items-center justify-center py-10 px-4">
+    <div className="min-h-screen flex items-center justify-center py-10 px-4">
       <Helmet>
-  <title>UpdateDetails || SadiaFund</title>
-</Helmet>
+        <title>Update Campaign || SadiaFund</title>
+      </Helmet>
       <div className="w-full max-w-3xl border border-gray-300 shadow-lg p-8">
         <h2 className="text-3xl font-bold text-center text-[#FF851B] mb-8">
           Update Campaign
         </h2>
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Image URL */}
+          {/* Image Upload */}
           <div className="form-control w-full">
             <label className="label">
-              <span className="label-text font-bold">Image/Thumbnail URL</span>
+              <span className="label-text font-bold">Upload Image</span>
             </label>
             <input
-              type="url"
-              name="image"
-              placeholder="Enter image URL"
-              className="input rounded-none input-bordered w-full"
-              defaultValue={image}
-
+              type="file"
+              accept="image/*"
+              className="file-input file-input-bordered w-full rounded-none"
+              onChange={handleImageChange}
             />
+            {preview && (
+              <div className="mt-4">
+                <p className="font-semibold mb-2">Image Preview:</p>
+                <img
+                  src={preview}
+                  alt="Preview"
+                  className="w-full max-w-xs max-h-60 border border-gray-300 rounded"
+                />
+              </div>
+            )}
           </div>
 
           {/* Campaign Title */}
@@ -96,10 +110,8 @@ const Update = () => {
             <input
               type="text"
               name="title"
-              placeholder="Enter campaign title"
               className="input rounded-none input-bordered w-full"
-              defaultValue={title}
-
+              defaultValue={title || ""}
             />
           </div>
 
@@ -111,15 +123,14 @@ const Update = () => {
             <select
               name="type"
               className="select select-bordered rounded-none w-full"
-              defaultValue={type} // Correctly set the default value
-
+              defaultValue={type || ""}
             >
               <option value="">Select Type</option>
               <option value="Environment">Environment</option>
               <option value="Education">Education</option>
-              <option value="animal welfare">animal welfare</option>
-              <option value="social development">social development</option>
-              <option value="humanitarian aid">humanitarian aid</option>
+              <option value="Animal Welfare">Animal Welfare</option>
+              <option value="Social Development">Social Development</option>
+              <option value="Humanitarian Aid">Humanitarian Aid</option>
             </select>
           </div>
 
@@ -130,11 +141,9 @@ const Update = () => {
             </label>
             <textarea
               name="description"
-              placeholder="Enter campaign description"
               className="textarea rounded-none textarea-bordered w-full"
-              defaultValue={description} // Correctly use defaultValue for textarea
-
-            ></textarea>
+              defaultValue={description || ""}
+            />
           </div>
 
           {/* Minimum Donation */}
@@ -145,10 +154,8 @@ const Update = () => {
             <input
               type="number"
               name="minimumDonation"
-              placeholder="Enter minimum donation amount"
               className="input rounded-none input-bordered w-full"
-              defaultValue={minimumDonation}
-
+              defaultValue={minimumDonation || 0}
             />
           </div>
 
@@ -161,8 +168,7 @@ const Update = () => {
               type="date"
               name="deadline"
               className="input rounded-none input-bordered w-full"
-              defaultValue={deadline}
-
+              defaultValue={deadline ? new Date(deadline).toISOString().split("T")[0] : ""}
             />
           </div>
 

@@ -17,8 +17,8 @@ const Navbar = () => {
           to="/"
           className={({ isActive }) =>
             isActive
-              ? "bg-gradient-to-r rounded-none font-bold text-white px-6 mx-4 py-2 from-[#FF851B] to-[#FFDC00]"
-              : "border-b-4 shadow-lg bg-orange-100 mx-4 px-6 py-2 border-[#FF851B] rounded-none"
+              ? "bg-gradient-to-r rounded-none font-bold text-white from-[#FF851B] to-[#FFDC00]"
+              : "border-b-4 shadow-lg bg-orange-100  border-[#FF851B] rounded-none"
           }
         >
           Home
@@ -29,8 +29,8 @@ const Navbar = () => {
           to="/campaigns"
           className={({ isActive }) =>
             isActive
-              ? "bg-gradient-to-r rounded-none font-bold text-white px-6 mx-4 py-2 from-[#FF851B] to-[#FFDC00]"
-              : "border-b-4 shadow-lg bg-orange-100 mx-4 px-6 py-2 border-[#FF851B] rounded-none"
+              ? "bg-gradient-to-r rounded-none font-bold text-white   from-[#FF851B] to-[#FFDC00]"
+              : "border-b-4 shadow-lg bg-orange-100  border-[#FF851B] rounded-none"
           }
         >
           All Campaigns
@@ -43,8 +43,8 @@ const Navbar = () => {
           to="/add-campaign"
           className={({ isActive }) =>
             isActive
-              ? "bg-gradient-to-r rounded-none font-bold text-white px-6 mx-4 py-2 from-[#FF851B] to-[#FFDC00]"
-              : "border-b-4 shadow-lg bg-orange-100 mx-4 px-6 py-2 border-[#FF851B] rounded-none"
+              ? "bg-gradient-to-r rounded-none font-bold text-white  from-[#FF851B] to-[#FFDC00]"
+              : "border-b-4 shadow-lg bg-orange-100  border-[#FF851B] rounded-none"
           }
         >
           Add New Campaign
@@ -55,8 +55,8 @@ const Navbar = () => {
           to="/my-campaigns"
           className={({ isActive }) =>
             isActive
-              ? "bg-gradient-to-r rounded-none font-bold text-white px-6 mx-4 py-2 from-[#FF851B] to-[#FFDC00]"
-              : "border-b-4 shadow-lg bg-orange-100 mx-4 px-6 py-2 border-[#FF851B] rounded-none"
+              ? "bg-gradient-to-r rounded-none font-bold text-white  from-[#FF851B] to-[#FFDC00]"
+              : "border-b-4 shadow-lg bg-orange-100  border-[#FF851B] rounded-none"
           }
         >
           My Campaigns
@@ -67,8 +67,8 @@ const Navbar = () => {
           to="/my-donations"
           className={({ isActive }) =>
             isActive
-              ? "bg-gradient-to-r rounded-none font-bold text-white px-6 mx-4 py-2 from-[#FF851B] to-[#FFDC00]"
-              : "border-b-4 shadow-lg bg-orange-100 mx-4 px-6 py-2 border-[#FF851B] rounded-none"
+              ? "bg-gradient-to-r rounded-none font-bold text-white  from-[#FF851B] to-[#FFDC00]"
+              : "border-b-4 shadow-lg bg-orange-100  border-[#FF851B] rounded-none"
           }
         >
           My Donations
@@ -83,8 +83,8 @@ const Navbar = () => {
           to="/about"
           className={({ isActive }) =>
             isActive
-              ? "bg-gradient-to-r rounded-none font-bold text-white px-6 mx-4 py-2 from-[#FF851B] to-[#FFDC00]"
-              : "border-b-4 shadow-lg bg-orange-100 mx-4 px-6 py-2 border-[#FF851B] rounded-none"
+              ? "bg-gradient-to-r rounded-none font-bold text-white  from-[#FF851B] to-[#FFDC00]"
+              : "border-b-4 shadow-lg bg-orange-100  border-[#FF851B] rounded-none"
           }
         >
           About Us
